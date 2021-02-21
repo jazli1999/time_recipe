@@ -14,7 +14,7 @@ void main() {
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Color(0xffffff)
+      systemNavigationBarColor: Colors.transparent
     )
   );
 

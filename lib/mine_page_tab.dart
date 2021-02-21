@@ -14,7 +14,7 @@ class _MinePageState extends State<MinePage> {
     return CustomScrollView(
       slivers: const <Widget>[
         CupertinoSliverNavigationBar(
-          largeTitle: Text('Statistics'),
+          largeTitle: Text('Mine'),
         ),
       ],
     );

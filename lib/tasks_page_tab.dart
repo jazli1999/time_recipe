@@ -12,10 +12,28 @@ class TasksPage extends StatelessWidget {
         final tasks = model.getProducts();
         return CustomScrollView(
           semanticChildCount: tasks.length,
-          slivers: const <Widget>[
+          slivers: <Widget>[
             CupertinoSliverNavigationBar(
               largeTitle: Text('Tasks'),
             ),
+            SliverSafeArea(
+                top: false,
+                minimum: const EdgeInsets.only(top: 8),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      if (index < tasks.length) {
+                        return TaskRowItem(
+                          index: index,
+                          task: tasks[index],
+                          lastItem: index == tasks.length - 1,
+                        );
+                      }
+                      return null;
+                    }
+                  ),
+                ),
+              )
           ],
         );
       },
