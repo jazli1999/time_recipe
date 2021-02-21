@@ -1,20 +1,22 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
-
-import 'model/app_state_model.dart';
+import 'package:intl/intl.dart';
 import 'model/task.dart';
 import 'styles.dart';
 
-class TaskRowItem extends StatelessWidget {
-  const TaskRowItem({
+class ShoppingCartItem extends StatelessWidget {
+  const ShoppingCartItem({
     this.index,
     this.task,
+    this.quantity,
     this.lastItem,
+    this.formatter,
   });
 
   final Task task;
   final int index;
+  final int quantity;
   final bool lastItem;
+  final NumberFormat formatter;
   
   @override
   Widget build(BuildContext context) {
@@ -59,17 +61,13 @@ class TaskRowItem extends StatelessWidget {
               ),
             ),
           ),
-          CupertinoButton(
-            padding: EdgeInsets.zero,
-            child: const Icon(
-              CupertinoIcons.plus_circled,
-              semanticLabel: 'Add',
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Text(
+              '\$${task.price}',
+              style: Styles.productRowTotal,
             ),
-            onPressed: (){
-              final model = Provider.of<AppStateModel>(context, listen:false);
-              model.addProductToCart(task.id);
-            }
-          ),
+          )
         ]
       )
     );
