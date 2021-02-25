@@ -9,15 +9,15 @@ class CategoryRowItem extends StatelessWidget {
   const CategoryRowItem({
     this.index,
     this.category,
+    this.nextTask,
   });
 
   final Category category;
   final int index;
+  final String nextTask;
 
   @override
   Widget build(BuildContext context) {
-    String nextTask = 'Buy milk in 6 days';
-
     final row = SafeArea(
         top: false,
         bottom: false,
@@ -27,29 +27,31 @@ class CategoryRowItem extends StatelessWidget {
           top: 8,
           bottom: 8,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Row(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Text(
-                      category.icon,
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Text(
+                          category.icon,
+                          style: Styles.baseFont,
+                        )),
+                    Text(
+                      category.name,
                       style: Styles.baseFont,
-                    )),
-                Text(
-                  category.name,
-                  style: Styles.baseFont,
+                    ),
+                  ],
                 ),
+                Text(
+                  nextTask,
+                  style: Styles.categoryNextTask,
+                )
               ],
-            ),
-            Text(
-              nextTask,
-              style: Styles.categoryNextTask,
-            )
-          ],
-        ));
+            )));
     return row;
   }
 }

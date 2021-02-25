@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 
 import 'app.dart';
-// import 'models/app_state_model.dart';
+import 'models/app_state_model.dart';
 
 void main() {
   // This app is designed only to work vertically, so we limit
@@ -15,5 +15,10 @@ void main() {
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.transparent));
 
-  return runApp(TimeRecipe());
+  return runApp(
+    ChangeNotifierProvider<AppStateModel>(
+      create: (context) => AppStateModel()..loadCategories(),
+      child: TimeRecipe(),
+    ),
+  );
 }

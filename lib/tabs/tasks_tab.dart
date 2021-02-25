@@ -1,49 +1,43 @@
 import 'package:flutter/cupertino.dart';
-
+import 'package:provider/provider.dart';
 import 'package:time_recipe/category_row_item.dart';
-import 'package:time_recipe/models/category.dart';
 
 import 'package:time_recipe/models/app_state_model.dart';
+import 'package:time_recipe/models/category.dart';
 
 class TasksTab extends StatelessWidget {
-  SliverChildBuilderDelegate _buildSliverChildBuilderDelegate() {
+  SliverChildBuilderDelegate _buildSliverChildBuilderDelegate(
+      List<Category> categories, AppStateModel model) {
     return SliverChildBuilderDelegate((context, index) {
-      switch (index) {
-        case 0:
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: CategoryRowItem(
-              index: 1,
-              category: Category(
-                name: 'Assignment',
-                tasks: List(),
-                isArchived: false,
-                id: 1,
-                icon: '📚',
-              ),
-            ),
-          );
-        default:
-          return null;
-      }
+      if (index < categories.length)
+        return CategoryRowItem(
+          category: categories[index],
+          index: index,
+          nextTask: model.calcNextTask(index),
+        );
+      else
+        return null;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        CupertinoSliverNavigationBar(
-          largeTitle: Text('Tasks'),
-        ),
-        SliverSafeArea(
-            top: false,
-            minimum: const EdgeInsets.only(top: 4),
-            sliver: SliverList(
-              delegate: _buildSliverChildBuilderDelegate(),
-            ))
-        // )
-      ],
-    );
+    return Consumer<AppStateModel>(builder: (context, model, child) {
+      final categories = model.getAllCategories();
+      return CustomScrollView(
+        slivers: <Widget>[
+          CupertinoSliverNavigationBar(
+            largeTitle: Text('Tasks'),
+          ),
+          SliverSafeArea(
+              top: false,
+              minimum: const EdgeInsets.only(top: 4),
+              sliver: SliverList(
+                delegate: _buildSliverChildBuilderDelegate(categories, model),
+              ))
+          // )
+        ],
+      );
+    });
   }
 }
