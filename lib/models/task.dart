@@ -5,6 +5,7 @@ class Task {
       {@required this.name,
       @required this.dateTime,
       @required this.isDone,
+      @required this.categoryId,
       @required this.id})
       : assert(name != null),
         assert(dateTime != null),
@@ -14,5 +15,6 @@ class Task {
   final String name;
   final DateTime dateTime;
   final bool isDone;
+  final int categoryId;
   final int id;
 }

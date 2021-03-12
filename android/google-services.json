@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "663531821629",
+    "project_id": "timerecipe-c12b0",
+    "storage_bucket": "timerecipe-c12b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663531821629:android:56dc579f231ecff0cbe854",
+        "android_client_info": {
+          "package_name": "com.yanjie.time_recipe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663531821629-ft52q7s823qqbljbif7vg1dnb33crf5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeM1vYA4eIFgRGv-pcGL3D5xhDtxJhrZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663531821629-ft52q7s823qqbljbif7vg1dnb33crf5u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

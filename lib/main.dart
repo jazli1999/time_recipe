@@ -6,6 +6,8 @@ import 'app.dart';
 import 'models/app_state_model.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   // This app is designed only to work vertically, so we limit
   // orientations to portrait up and down.
   SystemChrome.setPreferredOrientations(
