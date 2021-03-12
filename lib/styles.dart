@@ -8,11 +8,18 @@ abstract class Styles {
   );
 
   static const TextStyle baseFont = TextStyle(
-    fontSize: 16,
+    fontSize: 18,
+    color: Color(0xff000000),
   );
 
   static const TextStyle baseFontBold = TextStyle(
     fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle appBarTitle = TextStyle(
+    fontSize: 30,
+    color: Color(0xff000000),
     fontWeight: FontWeight.bold,
   );
 }

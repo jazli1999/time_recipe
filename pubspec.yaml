@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   intl: ^0.16.1
   provider: ^4.1.1
+  expansion_card: ^0.1.0
 
 dev_dependencies:
   flutter_test:
