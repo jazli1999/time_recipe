@@ -41,6 +41,7 @@ class TaskRowItem extends StatelessWidget {
 
   Widget _rowContentBuilder() {
     final dateString = getDateString(this.task.dateTime);
+    final dotSize = dateString == 'Today' ? 20.0 : 16.0;
     return Row(
       children: [
         Container(
@@ -56,10 +57,10 @@ class TaskRowItem extends StatelessWidget {
           margin:
               EdgeInsets.symmetric(horizontal: dateString == 'Today' ? 20 : 22),
           constraints: BoxConstraints(
-            minWidth: dateString == 'Today' ? 20 : 16,
-            minHeight: dateString == 'Today' ? 20 : 16,
-            maxHeight: dateString == 'Today' ? 20 : 16,
-            maxWidth: dateString == 'Today' ? 20 : 16,
+            minWidth: dotSize,
+            minHeight: dotSize,
+            maxHeight: dotSize,
+            maxWidth: dotSize,
           ),
           decoration: BoxDecoration(
             color:
