@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_recipe/category_row_item.dart';
+import 'package:time_recipe/Components/category_row_item.dart';
 import 'package:time_recipe/styles.dart';
-
 import 'package:time_recipe/models/app_state_model.dart';
 
 class TasksTab extends StatelessWidget {

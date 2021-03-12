@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:expansion_card/expansion_card.dart';
 // import 'package:provider/provider.dart';
 
-// import 'models/app_state_model.dart';
-import 'models/category.dart';
-import 'styles.dart';
+import 'package:time_recipe/models/category.dart';
+import 'package:time_recipe/models/task_repository.dart';
+import 'package:time_recipe/styles.dart';
+import 'package:time_recipe/components/tasks_panel.dart';
 
 class CategoryRowItem extends StatelessWidget {
   const CategoryRowItem({
@@ -50,7 +51,9 @@ class CategoryRowItem extends StatelessWidget {
               )
             ],
           ),
-          children: <Widget>[Text('To be filled')]),
+          children: <Widget>[
+            TasksPanel(tasks: TaskRepository.loadCategories())
+          ]),
     );
     return row;
   }
