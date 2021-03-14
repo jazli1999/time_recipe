@@ -23,7 +23,7 @@ class TaskRepository {
         name: 'Chapter 5 主题 Presentation'),
   ];
 
-  static List<Task> loadCategories() {
+  static List<Task> loadTasks() {
     return _allTasks;
   }
 }

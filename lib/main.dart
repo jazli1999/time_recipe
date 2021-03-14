@@ -19,7 +19,7 @@ void main() {
 
   return runApp(
     ChangeNotifierProvider<AppStateModel>(
-      create: (context) => AppStateModel()..loadCategories(),
+      create: (context) => AppStateModel(),
       child: TimeRecipe(),
     ),
   );

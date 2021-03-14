@@ -51,9 +51,7 @@ class CategoryRowItem extends StatelessWidget {
               )
             ],
           ),
-          children: <Widget>[
-            TasksPanel(tasks: TaskRepository.loadCategories())
-          ]),
+          children: <Widget>[TasksPanel(tasks: TaskRepository.loadTasks())]),
     );
     return row;
   }
