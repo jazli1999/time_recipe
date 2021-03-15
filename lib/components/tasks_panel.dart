@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:time_recipe/components/task_row_item.dart';
 import 'package:time_recipe/models/task.dart';
+import 'package:time_recipe/db_connect.dart';
 
-class TasksPanel extends StatelessWidget {
-  const TasksPanel({@required this.tasks});
+class TasksPanel extends StatefulWidget {
+  const TasksPanel({@required this.categoryId});
 
-  final List<Task> tasks;
+  final int categoryId;
+
+  @override
+  State<StatefulWidget> createState() {
+    return _TasksPanelState(categoryId: categoryId);
+  }
+}
+
+class _TasksPanelState extends State<TasksPanel> {
+  _TasksPanelState({@required this.categoryId});
+
+  final int categoryId;
+  List<Task> tasks = <Task>[];
+
+  void _updateData() async {
+    DBConnect.getTasksByCID(categoryId).then((value) {
+      if (mounted) {
+        setState(() {
+          this.tasks = [];
+          for (Object task in value) {
+            this.tasks.add(task);
+          }
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    _updateData();
     return Container(
         decoration: ShapeDecoration(
             shape: RoundedRectangleBorder(

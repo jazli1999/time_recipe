@@ -4,7 +4,6 @@ import 'package:expansion_card/expansion_card.dart';
 // import 'package:provider/provider.dart';
 
 import 'package:time_recipe/models/category.dart';
-import 'package:time_recipe/models/task_repository.dart';
 import 'package:time_recipe/styles.dart';
 import 'package:time_recipe/components/tasks_panel.dart';
 
@@ -51,7 +50,11 @@ class CategoryRowItem extends StatelessWidget {
               )
             ],
           ),
-          children: <Widget>[TasksPanel(tasks: TaskRepository.loadTasks())]),
+          children: <Widget>[
+            TasksPanel(
+              categoryId: category.id,
+            )
+          ]),
     );
     return row;
   }
