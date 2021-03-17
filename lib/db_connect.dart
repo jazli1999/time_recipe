@@ -25,4 +25,11 @@ class DBConnect {
     }
     return tasks;
   }
+
+  static Future<bool> updateTaskByTID(Map<String, dynamic> params) async {
+    FormData formData = FormData.fromMap(params);
+    Response response =
+        await Dio().post(ip + '/updateTaskByTID.php', data: formData);
+    return response.data == "1";
+  }
 }

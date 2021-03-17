@@ -200,7 +200,14 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)),
             onPressed: () {
-              print('Completed!');
+              Map<String, dynamic> params = new Map();
+              params['id'] = task.id;
+              params['is_done'] = 1;
+              DBConnect.updateTaskByTID(params).then((value) {
+                if (value) {
+                  Navigator.pop(context);
+                }
+              });
             },
             child: Row(
               children: [
