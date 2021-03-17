@@ -17,4 +17,17 @@ class Utils {
     }
     return null;
   }
+
+  static String dateFormatter(DateTime dateTime) {
+    return '${dateTime.year} 年 ${dateTime.month} 月 ${dateTime.day} 日';
+  }
+
+  static String timeFormatter(DateTime dateTime) {
+    String hour =
+        dateTime.hour < 10 ? '0${dateTime.hour}' : dateTime.hour.toString();
+    String minute = dateTime.minute < 10
+        ? '0${dateTime.minute}'
+        : dateTime.minute.toString();
+    return '$hour : $minute';
+  }
 }

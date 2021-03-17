@@ -29,6 +29,7 @@ abstract class Styles {
 
   static const TextStyle secondFont = TextStyle(
     fontSize: secondSize,
+    color: Color(0xff000000),
   );
 
   static const TextStyle secondFontBold = TextStyle(

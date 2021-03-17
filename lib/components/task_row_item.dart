@@ -92,10 +92,9 @@ class TaskRowItem extends StatelessWidget {
                     return UnconstrainedBox(
                         child: SizedBox(
                             width: 450,
-                            height: 600,
                             child: Dialog(
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)),
+                                  borderRadius: BorderRadius.circular(20)),
                               child: TaskDetailCard(
                                   task: this.task,
                                   categoryHeader: Utils.getCategoryHeader(
