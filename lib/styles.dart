@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 abstract class Styles {
   static const baseSize = 18.0;
   static const secondSize = 16.0;
+  static const thirdSize = 14.0;
 
   static const TextStyle categoryNextTask = TextStyle(
     color: Color(0xff8a8a8a),
@@ -33,5 +34,10 @@ abstract class Styles {
   static const TextStyle secondFontBold = TextStyle(
     fontSize: secondSize,
     fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle thirdFont = TextStyle(
+    fontSize: thirdSize,
+    color: Color(0xff000000),
   );
 }

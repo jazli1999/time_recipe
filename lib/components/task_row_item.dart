@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 // import 'models/app_state_model.dart';
 import 'package:time_recipe/styles.dart';
 import 'package:time_recipe/models/task.dart';
+import 'package:time_recipe/components/task_detail_card.dart';
+import 'package:time_recipe/utils.dart';
 
 class TaskRowItem extends StatelessWidget {
-  const TaskRowItem(
+  TaskRowItem(
       {@required this.task, @required this.isFirst, @required this.isLast});
 
   final Task task;
@@ -16,6 +18,8 @@ class TaskRowItem extends StatelessWidget {
   final bool isLast;
 
   final weekdays = const ['Mon', 'Tues', 'Wedns', 'Thurs', 'Fri', 'Sat', 'Sun'];
+
+  BuildContext context;
 
   String getDateString(DateTime dateTime) {
     final today = DateTime.now();
@@ -80,7 +84,26 @@ class TaskRowItem extends StatelessWidget {
             ],
           ),
         ),
-        Text(task.name, style: Styles.secondFont),
+        InkWell(
+            onTap: () {
+              showDialog<Null>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return UnconstrainedBox(
+                        child: SizedBox(
+                            width: 450,
+                            height: 600,
+                            child: Dialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: TaskDetailCard(
+                                  task: this.task,
+                                  categoryHeader: Utils.getCategoryHeader(
+                                      Utils.findCategoryById(task.categoryId))),
+                            )));
+                  });
+            },
+            child: Text(task.name, style: Styles.secondFont)),
       ],
     );
   }
@@ -127,6 +150,7 @@ class TaskRowItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    this.context = context;
     if (isFirst && isLast)
       return _onlyRowBuilder();
     else if (isFirst)

@@ -6,6 +6,7 @@ import 'package:time_recipe/db_connect.dart';
 import 'package:time_recipe/styles.dart';
 import 'package:time_recipe/models/category.dart';
 import 'package:time_recipe/models/app_state_model.dart';
+import 'package:time_recipe/models/repository.dart';
 
 class TasksTab extends StatefulWidget {
   @override
@@ -21,8 +22,10 @@ class _TasksTabState extends State<TasksTab> {
     DBConnect.getCategoriesByUID().then((value) {
       setState(() {
         this.categories = [];
+        Repository.categories = [];
         for (Object cat in value) {
           this.categories.add(cat);
+          Repository.categories.add(cat);
         }
       });
     });
