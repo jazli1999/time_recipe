@@ -19,6 +19,7 @@ class _TasksPanelState extends State<TasksPanel> {
 
   final int categoryId;
   List<Task> tasks = <Task>[];
+  bool updated = false;
 
   void _updateData() async {
     DBConnect.getTasksByCID(categoryId).then((value) {
@@ -28,6 +29,7 @@ class _TasksPanelState extends State<TasksPanel> {
           for (Object task in value) {
             this.tasks.add(task);
           }
+          this.updated = true;
         });
       }
     });
@@ -35,7 +37,7 @@ class _TasksPanelState extends State<TasksPanel> {
 
   @override
   Widget build(BuildContext context) {
-    _updateData();
+    if (!updated) _updateData();
     return Container(
         decoration: ShapeDecoration(
             shape: RoundedRectangleBorder(

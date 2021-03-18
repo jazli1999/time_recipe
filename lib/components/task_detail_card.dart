@@ -30,6 +30,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
   DateTime date;
   DateTime time;
   bool editMode = false;
+  bool updated = false;
 
   Widget _editBtn() {
     return Row(
@@ -187,6 +188,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
           for (Object cat in value) {
             this.categories.add(cat);
           }
+          this.updated = true;
         });
     });
   }
@@ -234,7 +236,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
           ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          onPressed: () => print('done'),
+          onPressed: () => {},
         ),
         RaisedButton(
           color: Color(0xffe26d6d),
@@ -254,7 +256,8 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
 
   @override
   Widget build(BuildContext context) {
-    _fetchLatestCategories();
+    if (!updated) _fetchLatestCategories();
+
     return Container(
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),

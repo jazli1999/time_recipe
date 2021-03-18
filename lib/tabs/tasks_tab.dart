@@ -17,6 +17,7 @@ class TasksTab extends StatefulWidget {
 
 class _TasksTabState extends State<TasksTab> {
   List<Category> categories = [];
+  bool updated = false;
 
   void _updateData() async {
     DBConnect.getCategoriesByUID().then((value) {
@@ -27,13 +28,14 @@ class _TasksTabState extends State<TasksTab> {
           this.categories.add(cat);
           Repository.categories.add(cat);
         }
+        this.updated = true;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateData();
+    if (!updated) _updateData();
     return Consumer<AppStateModel>(builder: (context, model, child) {
       return Scaffold(
           appBar: PreferredSize(
