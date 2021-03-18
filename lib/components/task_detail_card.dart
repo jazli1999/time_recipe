@@ -277,7 +277,13 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
           ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          onPressed: () => print('Delete'),
+          onPressed: () {
+            DBConnect.deleteTaskByTID(task.id).then((value) {
+              if (value) {
+                Navigator.pop(context);
+              }
+            });
+          },
         ),
       ],
     );

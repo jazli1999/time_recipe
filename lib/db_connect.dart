@@ -32,4 +32,10 @@ class DBConnect {
         await Dio().post(ip + '/updateTaskByTID.php', data: formData);
     return response.data == "1";
   }
+
+  static Future<bool> deleteTaskByTID(int tID) async {
+    Response response = await Dio().post(ip + '/deleteTaskByTID.php',
+        data: FormData.fromMap({'t_id': tID}));
+    return response.data == "1";
+  }
 }
