@@ -63,19 +63,31 @@ class _TasksPanelState extends State<TasksPanel> {
                   if (tasks.length == 1) {
                     if (index == 0)
                       return TaskRowItem(
-                          isFirst: true, isLast: true, task: tasks[index]);
+                          isFirst: true,
+                          isLast: true,
+                          task: tasks[index],
+                          refreshData: _updateData);
                     else
                       return null;
                   } else {
                     if (index == 0)
                       return TaskRowItem(
-                          isFirst: true, isLast: false, task: tasks[index]);
+                          isFirst: true,
+                          isLast: false,
+                          task: tasks[index],
+                          refreshData: _updateData);
                     else if (index < tasks.length - 1)
                       return TaskRowItem(
-                          isFirst: false, isLast: false, task: tasks[index]);
+                          isFirst: false,
+                          isLast: false,
+                          task: tasks[index],
+                          refreshData: _updateData);
                     else if (index == tasks.length - 1)
                       return TaskRowItem(
-                          isFirst: false, isLast: true, task: tasks[index]);
+                          isFirst: false,
+                          isLast: true,
+                          task: tasks[index],
+                          refreshData: _updateData);
                     else
                       return null;
                   }

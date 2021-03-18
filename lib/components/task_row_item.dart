@@ -9,14 +9,36 @@ import 'package:time_recipe/models/task.dart';
 import 'package:time_recipe/components/task_detail_card.dart';
 import 'package:time_recipe/utils.dart';
 
-class TaskRowItem extends StatelessWidget {
+class TaskRowItem extends StatefulWidget {
   TaskRowItem(
-      {@required this.task, @required this.isFirst, @required this.isLast});
+      {@required this.task,
+      @required this.isFirst,
+      @required this.isLast,
+      @required this.refreshData});
 
   final Task task;
   final bool isFirst;
   final bool isLast;
+  final Function refreshData;
 
+  @override
+  State<StatefulWidget> createState() {
+    return _TaskRowItemState(
+        isFirst: isFirst, isLast: isLast, task: task, refreshData: refreshData);
+  }
+}
+
+class _TaskRowItemState extends State<TaskRowItem> {
+  _TaskRowItemState(
+      {@required this.task,
+      @required this.isFirst,
+      @required this.isLast,
+      @required this.refreshData});
+
+  final Task task;
+  final bool isFirst;
+  final bool isLast;
+  final Function refreshData;
   final weekdays = const ['Mon', 'Tues', 'Wedns', 'Thurs', 'Fri', 'Sat', 'Sun'];
 
   BuildContext context;
@@ -100,7 +122,9 @@ class TaskRowItem extends StatelessWidget {
                                   categoryHeader: Utils.getCategoryHeader(
                                       Utils.findCategoryById(task.categoryId))),
                             )));
-                  });
+                  }).then((_) {
+                refreshData();
+              });
             },
             child: Text(task.name, style: Styles.secondFont)),
       ],

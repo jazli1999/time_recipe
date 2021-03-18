@@ -165,7 +165,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                 style: Styles.thirdFont,
                 value: categoryHeader == null ? ' ' : categoryHeader,
                 items: _getAllCategoryHeaders()
-                    .map<DropdownMenuItem<String>>((_cIdHeader value) {
+                    .map<DropdownMenuItem<String>>((_CIdHeader value) {
                   return DropdownMenuItem<String>(
                     value: value.header,
                     child: Text(value.header),
@@ -185,12 +185,12 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
         ));
   }
 
-  List<_cIdHeader> _getAllCategoryHeaders() {
-    List<_cIdHeader> headers = [];
+  List<_CIdHeader> _getAllCategoryHeaders() {
+    List<_CIdHeader> headers = [];
     catHeaderId = new Map();
     for (Category cat in categories) {
       String header = Utils.getCategoryHeader(cat);
-      headers.add(new _cIdHeader(id: cat.id, header: header));
+      headers.add(new _CIdHeader(id: cat.id, header: header));
       catHeaderId[header] = cat.id;
     }
     return headers;
@@ -257,7 +257,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
             params['id'] = task.id;
             DateTime dateTime = DateTime(
                 date.year, date.month, date.day, time.hour, time.minute);
-            params['date_time'] = dateTime.toString().substring(0, -4);
+            params['date_time'] = dateTime.toString();
             params['c_id'] = categoryId;
             params['t_name'] = taskName;
             DBConnect.updateTaskByTID(params).then((value) {
@@ -303,8 +303,8 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
   }
 }
 
-class _cIdHeader {
-  const _cIdHeader({@required this.id, @required this.header});
+class _CIdHeader {
+  const _CIdHeader({@required this.id, @required this.header});
 
   final int id;
   final String header;
