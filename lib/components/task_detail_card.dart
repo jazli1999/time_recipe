@@ -21,14 +21,18 @@ class TaskDetailCard extends StatefulWidget {
 class _TaskDetailCardState extends State<TaskDetailCard> {
   _TaskDetailCardState({this.task, this.categoryHeader})
       : date = task.dateTime,
-        time = task.dateTime;
+        time = task.dateTime,
+        taskName = task.name;
   final Task task;
   Task newTask;
   List<Category> categories = [];
+  Map<String, int> catHeaderId = new Map();
 
   String categoryHeader;
   DateTime date;
   DateTime time;
+  int categoryId;
+  String taskName;
   bool editMode = false;
   bool updated = false;
 
@@ -52,16 +56,24 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
   }
 
   Widget _taskNameFieldBuilder() {
+    FocusNode focusNode = new FocusNode();
+    TextEditingController controller = new TextEditingController(
+      text: taskName,
+    );
     return Row(children: [
       SizedBox(
         width: 330,
         child: TextField(
+            focusNode: focusNode
+              ..addListener(() {
+                if (!focusNode.hasFocus) {
+                  taskName = controller.text;
+                }
+              }),
             textAlign: TextAlign.start,
             style: Styles.baseFontBold,
             enabled: this.editMode,
-            controller: TextEditingController(
-              text: task?.name,
-            ),
+            controller: controller,
             decoration: InputDecoration(
               hintText: 'Task Title',
               contentPadding: EdgeInsets.only(bottom: -10, left: 5),
@@ -153,16 +165,17 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                 style: Styles.thirdFont,
                 value: categoryHeader == null ? ' ' : categoryHeader,
                 items: _getAllCategoryHeaders()
-                    .map<DropdownMenuItem<String>>((String value) {
+                    .map<DropdownMenuItem<String>>((_cIdHeader value) {
                   return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
+                    value: value.header,
+                    child: Text(value.header),
                   );
                 }).toList(),
                 onChanged: (String newValue) {
                   if (mounted)
                     setState(() {
                       this.categoryHeader = newValue;
+                      this.categoryId = catHeaderId[newValue];
                     });
                 },
               )
@@ -172,10 +185,13 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
         ));
   }
 
-  List<String> _getAllCategoryHeaders() {
-    List<String> headers = [];
+  List<_cIdHeader> _getAllCategoryHeaders() {
+    List<_cIdHeader> headers = [];
+    catHeaderId = new Map();
     for (Category cat in categories) {
-      headers.add(Utils.getCategoryHeader(cat));
+      String header = Utils.getCategoryHeader(cat);
+      headers.add(new _cIdHeader(id: cat.id, header: header));
+      catHeaderId[header] = cat.id;
     }
     return headers;
   }
@@ -236,7 +252,20 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
           ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          onPressed: () => {},
+          onPressed: () {
+            Map<String, dynamic> params = new Map();
+            params['id'] = task.id;
+            DateTime dateTime = DateTime(
+                date.year, date.month, date.day, time.hour, time.minute);
+            params['date_time'] = dateTime.toString().substring(0, -4);
+            params['c_id'] = categoryId;
+            params['t_name'] = taskName;
+            DBConnect.updateTaskByTID(params).then((value) {
+              if (value) {
+                Navigator.pop(context);
+              }
+            });
+          },
         ),
         RaisedButton(
           color: Color(0xffe26d6d),
@@ -272,4 +301,11 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
               ],
             )));
   }
+}
+
+class _cIdHeader {
+  const _cIdHeader({@required this.id, @required this.header});
+
+  final int id;
+  final String header;
 }
