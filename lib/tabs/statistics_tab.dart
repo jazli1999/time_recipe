@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:time_recipe/styles.dart';
 import 'package:time_recipe/models/app_state_model.dart';
 import 'package:time_recipe/components/time_distribution_card.dart';
+import 'package:time_recipe/components/category_distribution_card.dart';
 
 class StatisticsTab extends StatefulWidget {
   @override
@@ -57,7 +58,9 @@ class _StatisticsTabState extends State<StatisticsTab> {
                           });
                         }),
                     SizedBox(height: 15),
-                    TimeDistributionCard(range: this.currentSegmentTitle)
+                    TimeDistributionCard(range: this.currentSegmentTitle),
+                    SizedBox(height: 10),
+                    CategoryDistributionCard(),
                   ])
                 ],
               )));
