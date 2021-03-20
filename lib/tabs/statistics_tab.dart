@@ -13,12 +13,12 @@ class StatisticsTab extends StatefulWidget {
 }
 
 class _StatisticsTabState extends State<StatisticsTab> {
-  final List<String> segmentsTitle = ['week', 'month', 'months', 'year'];
+  final List<String> segmentsTitle = ['week', 'month', 'months'];
   final tabs = {
     'week': Text('1 week'),
     'month': Text('1 month'),
     'months': Text('3 months'),
-    'year': Text('1 year')
+    // 'year': Text('1 year')
   };
 
   String currentSegmentTitle = 'week';

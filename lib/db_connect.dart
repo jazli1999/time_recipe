@@ -38,4 +38,26 @@ class DBConnect {
         data: FormData.fromMap({'t_id': tID}));
     return response.data == "1";
   }
+
+  static Future<Map<String, dynamic>> getTasksDistributionByTime(
+      DateTime start, DateTime end) async {
+    Response response = await Dio().get(ip +
+        '/getTasksDistributionByTime.php?u_id=${CurrentUser.getId()}&start_time=$start&end_time=$end');
+    Map<String, dynamic> result = new Map();
+    for (var obj in response.data) {
+      result[obj['date']] = obj['num'];
+    }
+    return result;
+  }
+
+  static Future<List<dynamic>> getTasksDistributionByCategory() async {
+    Response response = await Dio().get(
+        ip + '/getTasksDistributionByCategory.php?u_id=${CurrentUser.getId()}');
+    List<dynamic> result = [];
+    // fields: id, c_name, icon, num
+    for (var obj in response.data) {
+      result.add(obj);
+    }
+    return result;
+  }
 }
