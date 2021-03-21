@@ -51,6 +51,7 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
           Jiffy(DateTime.parse(key)).dayOfYear.toDouble(), double.parse(value));
       dots.add(spot);
     });
+    dots.sort((spot, nextSpot) => (spot.x - nextSpot.x).round());
     return dots;
   }
 
@@ -93,7 +94,8 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
   }
 
   void _updateData() {
-    DBConnect.getTasksDistributionByTime(DateTime.now(), _calcEndDate())
+    DBConnect.getTasksDistributionByTime(
+            DateTime.now().subtract(Duration(days: 1)), _calcEndDate())
         .then((value) {
       if (mounted) {
         setState(() {
@@ -108,7 +110,7 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
 
   @override
   Widget build(BuildContext context) {
-    if (!updated) _updateData();
+    _updateData();
     counter = -1;
     DateTime endTime = _calcEndDate();
     dateAxisMax = Jiffy(endTime).dayOfYear.toDouble();

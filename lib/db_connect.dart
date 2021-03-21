@@ -50,13 +50,12 @@ class DBConnect {
     return result;
   }
 
-  static Future<List<dynamic>> getTasksDistributionByCategory() async {
+  static Future<Map<String, dynamic>> getTasksDistributionByCategory() async {
     Response response = await Dio().get(
         ip + '/getTasksDistributionByCategory.php?u_id=${CurrentUser.getId()}');
-    List<dynamic> result = [];
-    // fields: id, c_name, icon, num
+    Map<String, dynamic> result = new Map();
     for (var obj in response.data) {
-      result.add(obj);
+      result[obj['id']] = obj['num'];
     }
     return result;
   }

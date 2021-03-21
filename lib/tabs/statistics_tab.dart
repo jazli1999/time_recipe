@@ -43,27 +43,29 @@ class _StatisticsTabState extends State<StatisticsTab> {
             ),
             preferredSize: Size.fromHeight(80),
           ),
-          body: Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(children: [
-                    CupertinoSlidingSegmentedControl(
-                        groupValue: currentSegmentTitle,
-                        children: tabs,
-                        onValueChanged: (range) {
-                          setState(() {
-                            this.currentSegmentTitle = range;
-                          });
-                        }),
-                    SizedBox(height: 15),
-                    TimeDistributionCard(range: this.currentSegmentTitle),
-                    SizedBox(height: 10),
-                    CategoryDistributionCard(),
-                  ])
-                ],
-              )));
+          body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                  padding: EdgeInsets.only(top: 20, bottom: 80),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(children: [
+                        CupertinoSlidingSegmentedControl(
+                            groupValue: currentSegmentTitle,
+                            children: tabs,
+                            onValueChanged: (range) {
+                              setState(() {
+                                this.currentSegmentTitle = range;
+                              });
+                            }),
+                        SizedBox(height: 15),
+                        TimeDistributionCard(range: this.currentSegmentTitle),
+                        SizedBox(height: 10),
+                        CategoryDistributionCard(),
+                      ])
+                    ],
+                  ))));
     });
   }
 }
