@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:time_recipe/models/category.dart';
 import 'package:time_recipe/models/repository.dart';
 import 'package:time_recipe/db_connect.dart';
