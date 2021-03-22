@@ -24,28 +24,29 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
   bool updated = false;
   List<FlSpot> dots = [];
 
-  final colors = [
-    Color(0xffA4A295),
-    Color(0xff564c4d),
-    Color(0xff967d79),
-    Color(0xff715351),
-    Color(0xff6c737b)
+  final List<Color> colors = [
+    Color(0xff2af598),
+    Color(0xff009efd),
   ];
 
-  int counter;
   List<LineChartBarData> lineData = [];
   LineChartBarData _dataLineBuilder(List<FlSpot> spots) {
-    counter += 1;
     return LineChartBarData(
         spots: spots,
-        isCurved: true,
+        isCurved: false,
         dotData: FlDotData(show: false),
-        colors: [colors[counter % 5]],
-        barWidth: 3);
+        colors: colors,
+        belowBarData: BarAreaData(
+            show: true,
+            colors: colors.map((color) => color.withOpacity(0.3)).toList()),
+        barWidth: 2);
   }
 
   List<FlSpot> _spotBuilder(Map<String, dynamic> data) {
     dots = [];
+    String endDate =
+        _calcEndDate().subtract(Duration(days: 1)).toString().substring(0, 10);
+    if (!data.containsKey(endDate)) data[endDate] = '0';
     data.forEach((key, value) {
       FlSpot spot = FlSpot(
           Jiffy(DateTime.parse(key)).dayOfYear.toDouble(), double.parse(value));
@@ -94,8 +95,9 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
   }
 
   void _updateData() {
+    DateTime now = DateTime.now();
     DBConnect.getTasksDistributionByTime(
-            DateTime.now().subtract(Duration(days: 1)), _calcEndDate())
+            DateTime(now.year, now.month, now.day, 0, 0, 0), _calcEndDate())
         .then((value) {
       if (mounted) {
         setState(() {
@@ -111,7 +113,6 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
   @override
   Widget build(BuildContext context) {
     _updateData();
-    counter = -1;
     DateTime endTime = _calcEndDate();
     dateAxisMax = Jiffy(endTime).dayOfYear.toDouble();
     double numAxisMax = _calcNumAxisMax();
