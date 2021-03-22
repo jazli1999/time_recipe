@@ -56,43 +56,47 @@ class _TasksPanelState extends State<TasksPanel> {
               left: false,
               right: false,
               minimum: EdgeInsets.only(bottom: 20, top: 20),
-              child: ListView.builder(
-                itemCount: tasks.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  if (tasks.length == 1) {
-                    if (index == 0)
-                      return TaskRowItem(
-                          isFirst: true,
-                          isLast: true,
-                          task: tasks[index],
-                          refreshData: _updateData);
-                    else
-                      return null;
-                  } else {
-                    if (index == 0)
-                      return TaskRowItem(
-                          isFirst: true,
-                          isLast: false,
-                          task: tasks[index],
-                          refreshData: _updateData);
-                    else if (index < tasks.length - 1)
-                      return TaskRowItem(
-                          isFirst: false,
-                          isLast: false,
-                          task: tasks[index],
-                          refreshData: _updateData);
-                    else if (index == tasks.length - 1)
-                      return TaskRowItem(
-                          isFirst: false,
-                          isLast: true,
-                          task: tasks[index],
-                          refreshData: _updateData);
-                    else
-                      return null;
-                  }
-                },
-              ))
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Container(
+                      constraints: BoxConstraints(maxHeight: 400),
+                      child: ListView.builder(
+                        itemCount: tasks.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          if (tasks.length == 1) {
+                            if (index == 0)
+                              return TaskRowItem(
+                                  isFirst: true,
+                                  isLast: true,
+                                  task: tasks[index],
+                                  refreshData: _updateData);
+                            else
+                              return null;
+                          } else {
+                            if (index == 0)
+                              return TaskRowItem(
+                                  isFirst: true,
+                                  isLast: false,
+                                  task: tasks[index],
+                                  refreshData: _updateData);
+                            else if (index < tasks.length - 1)
+                              return TaskRowItem(
+                                  isFirst: false,
+                                  isLast: false,
+                                  task: tasks[index],
+                                  refreshData: _updateData);
+                            else if (index == tasks.length - 1)
+                              return TaskRowItem(
+                                  isFirst: false,
+                                  isLast: true,
+                                  task: tasks[index],
+                                  refreshData: _updateData);
+                            else
+                              return null;
+                          }
+                        },
+                      ))))
         ]));
   }
 }

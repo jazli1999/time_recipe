@@ -13,11 +13,11 @@ class CategoryDistributionCard extends StatefulWidget {
 }
 
 final List<Color> colors = [
-  Color(0xD9a05195),
-  Color(0xD9d45087),
-  Color(0xD9f95d6a),
-  Color(0xD9ff7c43),
-  Color(0xD9ffa600),
+  Color(0xbba05195),
+  Color(0xbbd45087),
+  Color(0xbbf95d6a),
+  Color(0xbbff7c43),
+  Color(0xbbffa600),
 ];
 
 class _CategoryDistributionCardState extends State<CategoryDistributionCard> {
@@ -27,6 +27,7 @@ class _CategoryDistributionCardState extends State<CategoryDistributionCard> {
   List<String> percentages = [];
 
   void _updateData() async {
+    if (Repository.categories == null) await Repository.updateCategories();
     await Repository.updateCategories();
     DBConnect.getTasksDistributionByCategory().then((results) {
       setState(() {
@@ -39,7 +40,8 @@ class _CategoryDistributionCardState extends State<CategoryDistributionCard> {
             this.sectionData.add(PieChartSectionData(
                 value: double.parse(value),
                 title: percentages[counter],
-                radius: 80,
+                titleStyle: Styles.thirdFontBoldWhite,
+                radius: 70,
                 color: colors[counter % 5],
                 badgePositionPercentageOffset: 0.98,
                 badgeWidget: Badge(icon: cat.icon, index: counter)));
@@ -70,22 +72,38 @@ class _CategoryDistributionCardState extends State<CategoryDistributionCard> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         shadowColor: Color(0x55000000),
-        child: Container(
-            constraints: BoxConstraints(
-                minWidth: 400, minHeight: 400, maxWidth: 400, maxHeight: 400),
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: this.sectionData.length == 0
-                  ? Text('No data')
-                  : PieChart(PieChartData(
-                      sections: this.sectionData,
-                      centerSpaceRadius: 50,
-                      sectionsSpace: 5,
-                      borderData: FlBorderData(
-                        show: false,
-                      ),
-                    )),
-            )));
+        child: SizedBox(
+            width: 400,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 15),
+                  Text('Tasks Distribution by Category',
+                      style: Styles.baseFontBold),
+                  SizedBox(height: 20),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Container(
+                      constraints: BoxConstraints(
+                          minWidth: 220,
+                          minHeight: 220,
+                          maxWidth: 220,
+                          maxHeight: 220),
+                      child: this.sectionData.length == 0
+                          ? Text('No data')
+                          : PieChart(PieChartData(
+                              sections: this.sectionData,
+                              centerSpaceRadius: 30,
+                              sectionsSpace: 3,
+                              borderData: FlBorderData(
+                                show: false,
+                              ),
+                            )),
+                    ),
+                    SizedBox(width: 10),
+                    if (updated) _CategoryLegend(),
+                  ]),
+                  SizedBox(height: 20),
+                ])));
   }
 }
 
@@ -97,7 +115,7 @@ class Badge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = 40.0;
+    final size = 30.0;
     return SizedBox(
         height: size,
         width: size,
@@ -114,7 +132,40 @@ class Badge extends StatelessWidget {
               )
             ],
           ),
-          child: Center(child: Text(icon, style: Styles.baseFont)),
+          child: Center(child: Text(icon, style: Styles.secondFont)),
         ));
+  }
+}
+
+class _CategoryLegend extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: _categoryLegendsBuilder());
+  }
+
+  List<Widget> _categoryLegendsBuilder() {
+    List<Widget> rows = [];
+    for (Category cat in Repository.categories) {
+      rows.add(Padding(
+          padding: EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                  width: 30, child: Text(cat.icon, style: Styles.secondFont)),
+              SizedBox(
+                  width: 100,
+                  child: Text(
+                    cat.name,
+                    style: Styles.secondFont,
+                    softWrap: true,
+                    maxLines: 3,
+                  ))
+            ],
+          )));
+    }
+    return rows;
   }
 }

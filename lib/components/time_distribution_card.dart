@@ -4,12 +4,10 @@ import 'package:jiffy/jiffy.dart';
 import 'package:time_recipe/models/category.dart';
 import 'package:time_recipe/models/repository.dart';
 import 'package:time_recipe/db_connect.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:time_recipe/styles.dart';
 
 class TimeDistributionCard extends StatefulWidget {
-  TimeDistributionCard({@required this.range});
-
-  final String range;
-
   @override
   State<StatefulWidget> createState() {
     return new _TimeDistributionCardState();
@@ -22,7 +20,15 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
   double dateAxisMin = Jiffy(DateTime.now()).dayOfYear.toDouble();
   double dateAxisMax;
   bool updated = false;
+  String range = 'week';
   List<FlSpot> dots = [];
+
+  final List<String> segmentsTitle = ['week', 'month', 'months'];
+  final tabs = {
+    'week': Text('1 week'),
+    'month': Text('1 month'),
+    'months': Text('3 months'),
+  };
 
   final List<Color> colors = [
     Color(0xff2af598),
@@ -33,7 +39,7 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
   LineChartBarData _dataLineBuilder(List<FlSpot> spots) {
     return LineChartBarData(
         spots: spots,
-        isCurved: false,
+        isCurved: true,
         dotData: FlDotData(show: false),
         colors: colors,
         belowBarData: BarAreaData(
@@ -47,6 +53,8 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
     String endDate =
         _calcEndDate().subtract(Duration(days: 1)).toString().substring(0, 10);
     if (!data.containsKey(endDate)) data[endDate] = '0';
+    String startDate = DateTime.now().toString().substring(0, 10);
+    if (!data.containsKey(startDate)) data[startDate] = '0';
     data.forEach((key, value) {
       FlSpot spot = FlSpot(
           Jiffy(DateTime.parse(key)).dayOfYear.toDouble(), double.parse(value));
@@ -71,7 +79,7 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
 
   DateTime _calcEndDate() {
     DateTime today = DateTime.now();
-    switch (widget.range) {
+    switch (range) {
       case 'week':
         return today.add(Duration(days: 7));
       case 'month':
@@ -125,54 +133,69 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Text(widget.range),
+                  SizedBox(height: 15),
+                  CupertinoSlidingSegmentedControl(
+                      groupValue: range,
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      children: tabs,
+                      onValueChanged: (newRange) {
+                        setState(() {
+                          this.range = newRange;
+                        });
+                      }),
+                  SizedBox(height: 15),
+                  Text('Future Timeline Distribution',
+                      style: Styles.baseFontBold),
                   Padding(
                       padding: EdgeInsets.only(top: 20, bottom: 20),
                       child: this.lineData.isEmpty || this.lineData == null
                           ? Text('No data')
-                          : LineChart(LineChartData(
-                              minX: dateAxisMin,
-                              maxX: dateAxisMax,
-                              minY: 0,
-                              maxY: numAxisMax,
-                              lineBarsData: this.lineData,
-                              gridData: FlGridData(
-                                horizontalInterval:
-                                    _calcAxisInterval(0, numAxisMax),
-                              ),
-                              borderData: FlBorderData(
-                                show: true,
-                                border: Border(
-                                    left: BorderSide(
-                                        width: 1, color: Color(0x55000000)),
-                                    bottom: BorderSide(
-                                        width: 1, color: Color(0x55000000))),
-                              ),
-                              titlesData: FlTitlesData(
-                                  bottomTitles: SideTitles(
-                                    getTitles: (value) {
-                                      DateTime date = DateTime.now().add(
-                                          Duration(
-                                              days: (value - dateAxisMin)
-                                                  .round()
-                                                  .abs()));
-                                      return '${date.month}.${date.day}';
-                                    },
-                                    showTitles: true,
-                                    interval: _calcAxisInterval(
-                                        dateAxisMin, dateAxisMax),
-                                  ),
-                                  leftTitles: SideTitles(
+                          : SizedBox(
+                              width: 380,
+                              child: FittedBox(
+                                  child: LineChart(LineChartData(
+                                minX: dateAxisMin,
+                                maxX: dateAxisMax,
+                                minY: 0,
+                                maxY: numAxisMax,
+                                lineBarsData: this.lineData,
+                                gridData: FlGridData(
+                                  horizontalInterval:
+                                      _calcAxisInterval(0, numAxisMax),
+                                ),
+                                borderData: FlBorderData(
+                                  show: true,
+                                  border: Border(
+                                      left: BorderSide(
+                                          width: 1, color: Color(0x55000000)),
+                                      bottom: BorderSide(
+                                          width: 1, color: Color(0x55000000))),
+                                ),
+                                titlesData: FlTitlesData(
+                                    bottomTitles: SideTitles(
+                                      getTitles: (value) {
+                                        DateTime date = DateTime.now().add(
+                                            Duration(
+                                                days: (value - dateAxisMin)
+                                                    .round()
+                                                    .abs()));
+                                        return '${date.month}.${date.day}';
+                                      },
                                       showTitles: true,
-                                      reservedSize: 30,
-                                      interval:
-                                          _calcAxisInterval(0, numAxisMax)),
-                                  rightTitles: SideTitles(
-                                      getTextStyles: (_) =>
-                                          TextStyle(color: Colors.white),
-                                      showTitles: true,
-                                      reservedSize: 30)),
-                            )))
+                                      interval: _calcAxisInterval(
+                                          dateAxisMin, dateAxisMax),
+                                    ),
+                                    leftTitles: SideTitles(
+                                        showTitles: true,
+                                        reservedSize: 30,
+                                        interval:
+                                            _calcAxisInterval(0, numAxisMax)),
+                                    rightTitles: SideTitles(
+                                        getTextStyles: (_) =>
+                                            TextStyle(color: Colors.white),
+                                        showTitles: true,
+                                        reservedSize: 30)),
+                              )))))
                 ])));
   }
 }

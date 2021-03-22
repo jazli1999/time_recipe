@@ -32,6 +32,11 @@ abstract class Styles {
     color: Color(0xff000000),
   );
 
+  static const TextStyle secondFontWhite = TextStyle(
+    fontSize: secondSize,
+    color: Color(0xffffffff),
+  );
+
   static const TextStyle secondFontBold = TextStyle(
     fontSize: secondSize,
     fontWeight: FontWeight.bold,
@@ -40,5 +45,11 @@ abstract class Styles {
   static const TextStyle thirdFont = TextStyle(
     fontSize: thirdSize,
     color: Color(0xff000000),
+  );
+
+  static const TextStyle thirdFontBoldWhite = TextStyle(
+    fontSize: thirdSize,
+    color: Color(0xffffffff),
+    fontWeight: FontWeight.bold,
   );
 }

@@ -14,21 +14,6 @@ class StatisticsTab extends StatefulWidget {
 }
 
 class _StatisticsTabState extends State<StatisticsTab> {
-  final List<String> segmentsTitle = ['week', 'month', 'months'];
-  final tabs = {
-    'week': Text('1 week'),
-    'month': Text('1 month'),
-    'months': Text('3 months'),
-    // 'year': Text('1 year')
-  };
-
-  String currentSegmentTitle = 'week';
-
-  Widget getTimeDistributionCard() {
-    String range = currentSegmentTitle;
-    return TimeDistributionCard(range: range);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AppStateModel>(builder: (context, model, child) {
@@ -46,21 +31,13 @@ class _StatisticsTabState extends State<StatisticsTab> {
           body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 80),
+                  padding: EdgeInsets.only(bottom: 80),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(children: [
-                        CupertinoSlidingSegmentedControl(
-                            groupValue: currentSegmentTitle,
-                            children: tabs,
-                            onValueChanged: (range) {
-                              setState(() {
-                                this.currentSegmentTitle = range;
-                              });
-                            }),
                         SizedBox(height: 15),
-                        TimeDistributionCard(range: this.currentSegmentTitle),
+                        TimeDistributionCard(),
                         SizedBox(height: 10),
                         CategoryDistributionCard(),
                       ])
