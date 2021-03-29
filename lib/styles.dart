@@ -5,6 +5,7 @@ abstract class Styles {
   static const baseSize = 18.0;
   static const secondSize = 16.0;
   static const thirdSize = 14.0;
+  static const headerSize = 24.0;
 
   static const TextStyle categoryNextTask = TextStyle(
     color: Color(0xff8a8a8a),
@@ -16,10 +17,21 @@ abstract class Styles {
     color: Color(0xff000000),
   );
 
+  static const TextStyle headerFont = TextStyle(
+    color: Color(0xff000000),
+    fontSize: headerSize,
+    fontWeight: FontWeight.bold,
+  );
+
   static const TextStyle baseFontBold = TextStyle(
     fontSize: baseSize,
     fontWeight: FontWeight.bold,
   );
+
+  static const TextStyle baseFontBoldWhite = TextStyle(
+      fontSize: baseSize,
+      fontWeight: FontWeight.bold,
+      color: Color(0xffffffff));
 
   static const TextStyle appBarTitle = TextStyle(
     fontSize: 30,
