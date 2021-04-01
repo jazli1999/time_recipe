@@ -16,10 +16,6 @@ class HomePage extends StatelessWidget {
             tabBar: CupertinoTabBar(
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.calendar_today),
-                  label: 'Today',
-                ),
-                BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.list_dash),
                   label: 'Tasks',
                 ),
@@ -34,22 +30,16 @@ class HomePage extends StatelessWidget {
                 case 0:
                   return CupertinoTabView(builder: (context) {
                     return CupertinoPageScaffold(
-                      child: TodayTab(),
+                      child: TasksTab(),
                     );
                   });
                 case 1:
                   return CupertinoTabView(builder: (context) {
                     return CupertinoPageScaffold(
-                      child: TasksTab(),
-                    );
-                  });
-                case 2:
-                  return CupertinoTabView(builder: (context) {
-                    return CupertinoPageScaffold(
                       child: StatisticsTab(),
                     );
                   });
-                case 3:
+                case 2:
                   return CupertinoTabView(builder: (context) {
                     return CupertinoPageScaffold(
                       child: MineTab(),

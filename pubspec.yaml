@@ -36,6 +36,7 @@ dependencies:
   flutter_datetime_picker: ^1.5.0
   fl_chart: ^0.12.3
   jiffy: ^3.0.1
+  toast: ^0.1.5
 
 dev_dependencies:
   flutter_test:
@@ -82,3 +83,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: QuanTangShiJ
+      fonts:
+        - asset: assets/fonts/HYQuanTangShiJ.ttf
+    - family: Rayna
+      fonts:
+        - asset: assets/fonts/Rayna.ttf

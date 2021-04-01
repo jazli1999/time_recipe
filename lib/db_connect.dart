@@ -60,11 +60,16 @@ class DBConnect {
     return result;
   }
 
-  static Future<bool> checkAuthentication(String email, String passwd) async {
+  static Future<Map<String, dynamic>> checkAuthentication(
+      String email, String passwd) async {
     String url = ip + '/checkAuthentication.php?email=$email&passwd=$passwd';
-    print(url);
     Response response = await Dio().get(url);
-
-    return response.data['result'] == "1";
+    Map<String, dynamic> result = new Map();
+    result['auth'] = (response.data['result'] == "1");
+    if (result['auth']) {
+      result['u_id'] = int.parse(response.data['id']);
+      result['username'] = response.data['username'];
+    }
+    return result;
   }
 }

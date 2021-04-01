@@ -1,6 +1,6 @@
 class CurrentUser {
-  static int _id = 1;
-  static String _username = '小娟';
+  static int _id;
+  static String _username;
   static bool _isLoggedIn = false;
 
   static void setId(int value) {

@@ -7,6 +7,15 @@ abstract class Styles {
   static const thirdSize = 14.0;
   static const headerSize = 24.0;
 
+  static const TextStyle logoFont = const TextStyle(
+      fontFamily: 'QuanTangShiJ', color: Color(0xcc303030), fontSize: 60);
+
+  static const TextStyle logoFontEng = const TextStyle(
+      fontSize: 16,
+      color: Color(0x88303030),
+      fontFamily: 'Rayna',
+      fontWeight: FontWeight.bold);
+
   static const TextStyle categoryNextTask = TextStyle(
     color: Color(0xff8a8a8a),
     fontSize: secondSize,
