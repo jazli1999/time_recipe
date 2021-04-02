@@ -72,4 +72,10 @@ class DBConnect {
     }
     return result;
   }
+
+  static Future<String> getUserInfo() async {
+    Response response =
+        await Dio().get(ip + '/getUserInfo.php?id=${CurrentUser.getId()}');
+    return response.data['usernmame'];
+  }
 }

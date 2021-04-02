@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:time_recipe/current_user.dart';
 import 'package:time_recipe/db_connect.dart';
@@ -38,6 +39,10 @@ class _LoginPageState extends State<LoginPage> {
           textColor: Colors.white);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomePage()));
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('logged', true);
+      prefs.setInt('id', authResult['u_id']);
     } else {
       Toast.show("邮箱或密码错误", context,
           duration: Toast.LENGTH_SHORT,
