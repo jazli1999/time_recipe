@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_recipe/current_user.dart';
 import 'package:time_recipe/db_connect.dart';
 import 'package:time_recipe/styles.dart';
-import 'package:time_recipe/homepage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -37,8 +36,7 @@ class _LoginPageState extends State<LoginPage> {
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.green[400],
           textColor: Colors.white);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.pushNamed(context, '/tasks');
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setBool('logged', true);
@@ -70,8 +68,7 @@ class _LoginPageState extends State<LoginPage> {
       CurrentUser.setUsername(username);
       CurrentUser.setIsLoggedIn(true);
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.pushNamed(context, '/tasks');
     } else {
       CurrentUser.setIsLoggedIn(false);
     }

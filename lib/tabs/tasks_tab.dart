@@ -7,6 +7,7 @@ import 'package:time_recipe/styles.dart';
 import 'package:time_recipe/models/category.dart';
 import 'package:time_recipe/models/app_state_model.dart';
 import 'package:time_recipe/models/repository.dart';
+import 'package:time_recipe/components/bottom_bar.dart';
 
 class TasksTab extends StatefulWidget {
   @override
@@ -48,6 +49,10 @@ class _TasksTabState extends State<TasksTab> {
             ),
             preferredSize: Size.fromHeight(80),
           ),
+          bottomNavigationBar: BottomBar(selected: "tasks"),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: BottomBar.getFab(),
           body: ListView.builder(
             itemCount: this.categories.length,
             itemBuilder: (context, index) {
