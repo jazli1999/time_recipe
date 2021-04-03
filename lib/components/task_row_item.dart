@@ -48,7 +48,7 @@ class _TaskRowItemState extends State<TaskRowItem> {
     if (dateTime.year == today.year &&
         dateTime.month == today.month &&
         dateTime.day == today.day) return 'Today';
-    return this.weekdays[dateTime.weekday - 1] + '. ' + dateTime.day.toString();
+    return '${this.weekdays[dateTime.weekday - 1]} ${dateTime.month}.${dateTime.day}';
   }
 
   Widget _lineBuilder() {
