@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
 import 'app.dart';
@@ -17,10 +18,10 @@ void main() {
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.transparent));
 
-  return runApp(
-    ChangeNotifierProvider<AppStateModel>(
+  return runApp(Phoenix(
+    child: ChangeNotifierProvider<AppStateModel>(
       create: (context) => AppStateModel(),
       child: TimeRecipe(),
     ),
-  );
+  ));
 }

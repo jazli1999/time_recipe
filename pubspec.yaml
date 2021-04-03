@@ -38,6 +38,7 @@ dependencies:
   jiffy: ^3.0.1
   toast: ^0.1.5
   shared_preferences: ^0.5.1+4
+  flutter_phoenix: ^0.1.0
 
 dev_dependencies:
   flutter_test:

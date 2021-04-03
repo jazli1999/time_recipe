@@ -58,7 +58,28 @@ class _LoginPageState extends State<LoginPage> {
     CurrentUser.setIsLoggedIn(true);
   }
 
+  void checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('logged')) {
+      prefs.setBool('logged', false);
+    }
+    bool isLogged = prefs.getBool('logged');
+    if (isLogged) {
+      CurrentUser.setId(prefs.getInt('id'));
+      String username = await DBConnect.getUserInfo();
+      CurrentUser.setUsername(username);
+      CurrentUser.setIsLoggedIn(true);
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+    } else {
+      CurrentUser.setIsLoggedIn(false);
+    }
+  }
+
   Widget build(BuildContext context) {
+    checkLoginStatus();
+
     TextEditingController emailController =
         new TextEditingController(text: email);
     TextEditingController pwdController =
