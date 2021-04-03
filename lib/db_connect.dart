@@ -78,4 +78,14 @@ class DBConnect {
         await Dio().get(ip + '/getUserInfo.php?id=${CurrentUser.getId()}');
     return response.data['username'];
   }
+
+  static Future<List<Task>> getTodayTasksByUID() async {
+    Response response = await Dio()
+        .get(ip + '/getTodayTasksByUID.php?id=${CurrentUser.getId()}');
+    var tasks = <Task>[];
+    for (var obj in response.data) {
+      tasks.add(Task.fromJson(obj));
+    }
+    return tasks;
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:time_recipe/components/task_row_item.dart';
 import 'package:time_recipe/models/task.dart';
 import 'package:time_recipe/db_connect.dart';
+import 'package:time_recipe/components/builders.dart';
 
 class TasksPanel extends StatefulWidget {
   const TasksPanel({@required this.categoryId});
@@ -37,6 +37,9 @@ class _TasksPanelState extends State<TasksPanel> {
 
   @override
   Widget build(BuildContext context) {
+    Builders builders =
+        new Builders(list: this.tasks, updateData: this._updateData);
+
     if (!updated) _updateData();
     return Container(
         decoration: ShapeDecoration(
@@ -63,39 +66,7 @@ class _TasksPanelState extends State<TasksPanel> {
                       child: ListView.builder(
                         itemCount: tasks.length,
                         shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          if (tasks.length == 1) {
-                            if (index == 0)
-                              return TaskRowItem(
-                                  isFirst: true,
-                                  isLast: true,
-                                  task: tasks[index],
-                                  refreshData: _updateData);
-                            else
-                              return null;
-                          } else {
-                            if (index == 0)
-                              return TaskRowItem(
-                                  isFirst: true,
-                                  isLast: false,
-                                  task: tasks[index],
-                                  refreshData: _updateData);
-                            else if (index < tasks.length - 1)
-                              return TaskRowItem(
-                                  isFirst: false,
-                                  isLast: false,
-                                  task: tasks[index],
-                                  refreshData: _updateData);
-                            else if (index == tasks.length - 1)
-                              return TaskRowItem(
-                                  isFirst: false,
-                                  isLast: true,
-                                  task: tasks[index],
-                                  refreshData: _updateData);
-                            else
-                              return null;
-                          }
-                        },
+                        itemBuilder: builders.itemLineBuilder,
                       ))))
         ]));
   }
