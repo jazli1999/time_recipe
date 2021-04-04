@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 
-class BottomBar extends StatelessWidget {
-  BottomBar({@required this.selected});
+BottomBar bottomBar;
 
-  final String selected;
+BottomBar getBar() {
+  if (bottomBar == null) bottomBar = BottomBar();
+  return bottomBar;
+}
 
-  static Widget getFab() {
-    return Container(
-        height: 60,
-        width: 60,
-        child: FloatingActionButton(
-            child: Icon(Icons.add, size: 30), onPressed: () {}));
+class BottomBar extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _BottomBarState();
+  }
+}
+
+class _BottomBarState extends State<BottomBar> {
+  String selected;
+
+  void changeSelected(String value) {
+    setState(() {
+      this.selected = value;
+    });
   }
 
   @override
@@ -30,6 +40,7 @@ class BottomBar extends StatelessWidget {
                         ? Colors.blue[600]
                         : Colors.grey[600]),
                 onPressed: () {
+                  changeSelected('tasks');
                   Navigator.pushNamed(context, '/tasks');
                 }),
             Spacer(flex: 2),
@@ -40,6 +51,7 @@ class BottomBar extends StatelessWidget {
                         ? Colors.blue[600]
                         : Colors.grey[600]),
                 onPressed: () {
+                  changeSelected('statistics');
                   Navigator.pushNamed(context, '/statistics');
                 }),
             Spacer(flex: 1),

@@ -6,6 +6,7 @@ import 'package:time_recipe/models/app_state_model.dart';
 import 'package:time_recipe/components/time_distribution_card.dart';
 import 'package:time_recipe/components/category_distribution_card.dart';
 import 'package:time_recipe/components/bottom_bar.dart';
+import 'package:time_recipe/components/add_button.dart';
 
 class StatisticsTab extends StatefulWidget {
   @override
@@ -31,8 +32,8 @@ class _StatisticsTabState extends State<StatisticsTab> {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: BottomBar.getFab(),
-          bottomNavigationBar: BottomBar(selected: "statistics"),
+          floatingActionButton: getFab(),
+          bottomNavigationBar: getBar(),
           body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Padding(
