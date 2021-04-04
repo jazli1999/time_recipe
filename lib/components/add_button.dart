@@ -14,7 +14,7 @@ class AddButton extends StatefulWidget {
   }
 }
 
-class _AddButtonState extends State<AddButton> with TickerProviderStateMixin {
+class _AddButtonState extends State<AddButton> {
   bool _listShow = false;
   OverlayEntry _listEntry;
   Widget miniButtons;
@@ -29,16 +29,21 @@ class _AddButtonState extends State<AddButton> with TickerProviderStateMixin {
               SizedBox(width: 105),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 FloatingActionButton.extended(
-                    label: Text('Add Category'),
+                    label: Text('New Category'),
                     backgroundColor: Colors.blue[400],
                     icon: Icon(Icons.book_outlined),
-                    onPressed: () {}),
+                    onPressed: () {
+                      toggleOverlay();
+                      Navigator.pushNamed(context, '/addCategory');
+                    }),
                 SizedBox(height: 10),
                 FloatingActionButton.extended(
-                    label: Text('Add Task'),
+                    label: Text('New Task'),
                     backgroundColor: Colors.blue[400],
                     icon: Icon(Icons.check_circle_outline),
-                    onPressed: () {}),
+                    onPressed: () {
+                      toggleOverlay();
+                    }),
               ])
             ]),
         SizedBox(height: 100),
@@ -49,6 +54,7 @@ class _AddButtonState extends State<AddButton> with TickerProviderStateMixin {
   void toggleOverlay() {
     if (_listShow) {
       _listEntry.remove();
+      _listEntry = null;
       _listShow = false;
     } else {
       _listEntry = new OverlayEntry(builder: (context) {

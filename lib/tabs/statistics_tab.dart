@@ -23,7 +23,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
           appBar: PreferredSize(
             child: AppBar(
               title: Padding(
-                  padding: EdgeInsets.only(top: 30, left: 10),
+                  padding: EdgeInsets.only(top: 30),
                   child: Text('Statistics', style: Styles.appBarTitle)),
               backgroundColor: Color(0xffffffff),
               brightness: Brightness.light,

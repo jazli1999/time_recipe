@@ -43,7 +43,7 @@ class _TasksTabState extends State<TasksTab> {
           appBar: PreferredSize(
             child: AppBar(
               title: Padding(
-                  padding: EdgeInsets.only(top: 30, left: 10),
+                  padding: EdgeInsets.only(top: 30),
                   child: Text('Tasks', style: Styles.appBarTitle)),
               backgroundColor: Color(0xffffffff),
               brightness: Brightness.light,
