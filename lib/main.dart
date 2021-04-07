@@ -16,7 +16,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.transparent));
+      systemNavigationBarColor: Colors.white));
 
   return runApp(Phoenix(
     child: ChangeNotifierProvider<AppStateModel>(
