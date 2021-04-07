@@ -9,6 +9,7 @@ import 'package:time_recipe/models/app_state_model.dart';
 import 'package:time_recipe/models/repository.dart';
 import 'package:time_recipe/components/bottom_bar.dart';
 import 'package:time_recipe/components/add_button.dart';
+import 'package:time_recipe/components/logout.dart';
 
 class TasksTab extends StatefulWidget {
   @override
@@ -37,6 +38,7 @@ class _TasksTabState extends State<TasksTab> {
 
   @override
   Widget build(BuildContext context) {
+    Logout logout = new Logout(context: context);
     if (!updated) _updateData();
     return Consumer<AppStateModel>(builder: (context, model, child) {
       return Scaffold(
@@ -44,13 +46,18 @@ class _TasksTabState extends State<TasksTab> {
             child: AppBar(
               title: Padding(
                   padding: EdgeInsets.only(top: 30),
-                  child: Text('Tasks', style: Styles.appBarTitle)),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Statistics', style: Styles.appBarTitle),
+                        logout.logoutBuilder()
+                      ])),
               backgroundColor: Color(0xffffffff),
               brightness: Brightness.light,
             ),
             preferredSize: Size.fromHeight(80),
           ),
-          bottomNavigationBar: getBar(),
+          bottomNavigationBar: BottomBar(selected: 'tasks'),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: getFab(),
