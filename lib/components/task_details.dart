@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import 'package:time_recipe/models/task.dart';
@@ -7,56 +8,31 @@ import 'package:time_recipe/db_connect.dart';
 import 'package:time_recipe/models/category.dart';
 import 'package:time_recipe/utils.dart';
 
-class TaskDetailCard extends StatefulWidget {
-  const TaskDetailCard(
-      {this.task, this.categoryHeader, this.isNew, this.editMode = false});
-  final Task task;
-  final String categoryHeader;
-  final bool isNew;
+class TaskDetail extends StatefulWidget {
+  TaskDetail(
+      {@required this.editMode,
+      @required this.categoryHeader,
+      @required this.task});
+
   final bool editMode;
+  final String categoryHeader;
+  final Task task;
 
   @override
   State<StatefulWidget> createState() {
-    return _TaskDetailCardState(task: task, categoryHeader: categoryHeader);
+    return _TaskDetailState();
   }
 }
 
-class _TaskDetailCardState extends State<TaskDetailCard> {
-  _TaskDetailCardState({this.task, this.categoryHeader})
-      : date = task.dateTime,
-        time = task.dateTime,
-        taskName = task.name;
-  final Task task;
-  Task newTask;
-  List<Category> categories = [];
-  Map<String, int> catHeaderId = new Map();
-
-  String categoryHeader;
+class _TaskDetailState extends State<TaskDetail> {
+  String taskName;
   DateTime date;
   DateTime time;
-  int categoryId;
-  String taskName;
-  bool editMode;
+  String categoryHeader;
+  List<Category> categories = [];
   bool updated = false;
-
-  Widget _editBtn() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        SizedBox(
-            width: 25,
-            child: InkWell(
-              onTap: () {
-                if (mounted)
-                  setState(() {
-                    this.editMode = true;
-                  });
-              },
-              child: Icon(Icons.edit, size: 16),
-            ))
-      ],
-    );
-  }
+  int categoryId;
+  Map<String, int> catHeaderId = new Map();
 
   Widget _taskNameFieldBuilder() {
     FocusNode focusNode = new FocusNode();
@@ -75,7 +51,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
               }),
             textAlign: TextAlign.start,
             style: Styles.baseFontBold,
-            enabled: this.editMode,
+            enabled: widget.editMode,
             controller: controller,
             decoration: InputDecoration(
               hintText: 'Task Title',
@@ -104,7 +80,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
               Container(
                 child: GestureDetector(
                     onTap: () {
-                      if (editMode)
+                      if (widget.editMode)
                         DatePicker.showDatePicker(context,
                             showTitleActions: true,
                             minTime: DateTime.now(),
@@ -136,7 +112,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
               Container(
                   child: GestureDetector(
                 onTap: () {
-                  if (editMode)
+                  if (widget.editMode)
                     DatePicker.showTimePicker(context,
                         showTitleActions: true,
                         showSecondsColumn: false, onConfirm: (newTime) {
@@ -156,20 +132,17 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
   }
 
   Widget _categoryRowBuilder() {
-    if (categoryHeader == null) {
-      categoryHeader = Utils.getCategoryHeader(this.categories[0]);
-    }
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _labelBuilder('📂', 'Category'),
-            if (editMode)
+            if (widget.editMode)
               DropdownButton<String>(
                 icon: Icon(Icons.keyboard_arrow_down),
                 style: Styles.thirdFont,
-                value: categoryHeader == null ? ' ' : categoryHeader,
+                value: widget.categoryHeader == null ? ' ' : categoryHeader,
                 items: _getAllCategoryHeaders()
                     .map<DropdownMenuItem<String>>((_CIdHeader value) {
                   return DropdownMenuItem<String>(
@@ -215,124 +188,21 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
     });
   }
 
-  Widget _viewBtnRowBuilder() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        RaisedButton(
-            color: Color(0xbb845ba8),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)),
-            onPressed: () {
-              Map<String, dynamic> params = new Map();
-              params['id'] = task.id;
-              params['is_done'] = 1;
-              DBConnect.updateTaskByTID(params).then((value) {
-                if (value) {
-                  Navigator.pop(context);
-                }
-              });
-            },
-            child: Row(
-              children: [
-                Icon(Icons.check_box_outlined, color: Color(0xffffffff)),
-                Text(' Task Completed!',
-                    style: TextStyle(color: Color(0xffffffff))),
-              ],
-            ))
-      ],
-    );
-  }
-
-  Widget _editBtnRowBuilder() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        RaisedButton(
-          color: Color(0xff65a4f9),
-          child: Row(
-            children: [
-              Icon(Icons.done, color: Color(0xffffffff)),
-              Text(' Update', style: TextStyle(color: Color(0xffffffff))),
-            ],
-          ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          onPressed: () {
-            Map<String, dynamic> params = new Map();
-            params['id'] = task.id;
-            DateTime dateTime = DateTime(
-                date.year, date.month, date.day, time.hour, time.minute);
-            params['date_time'] = dateTime.toString();
-            params['c_id'] = categoryId;
-            params['t_name'] = taskName;
-            DBConnect.updateTaskByTID(params).then((value) {
-              if (value) {
-                Navigator.pop(context);
-              }
-            });
-          },
-        ),
-        RaisedButton(
-          color: Color(0xffe26d6d),
-          child: Row(
-            children: [
-              Icon(Icons.delete_forever, color: Color(0xffffffff)),
-              Text(' Delete', style: TextStyle(color: Color(0xffffffff))),
-            ],
-          ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          onPressed: () {
-            DBConnect.deleteTaskByTID(task.id).then((value) {
-              if (value) {
-                Navigator.pop(context);
-              }
-            });
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget _cardWrapper(Widget _child) {
-    return UnconstrainedBox(
-        child: SizedBox(
-            width: 460,
-            child: Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: _child)));
-  }
-
-  Widget _contentBuilder() {
-    return Container(
-        child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Column(
-              children: [
-                if (!widget.isNew && !editMode) _editBtn(),
-                _taskNameFieldBuilder(),
-                _categoryRowBuilder(),
-                _dateRowBuilder(),
-                _timeRowBuilder(),
-                if (!widget.isNew && editMode)
-                  _editBtnRowBuilder()
-                else if (!widget.isNew)
-                  _viewBtnRowBuilder(),
-              ],
-            )));
-  }
-
   @override
   Widget build(BuildContext context) {
-    this.editMode = widget.editMode;
     if (!updated) _fetchLatestCategories();
+    date = widget.task.dateTime;
+    time = widget.task.dateTime;
+    taskName = widget.task.name;
 
-    if (widget.isNew)
-      return _cardWrapper(_contentBuilder());
-    else
-      return _contentBuilder();
+    return Container(
+        constraints: BoxConstraints(maxHeight: 400),
+        child: Column(children: [
+          _taskNameFieldBuilder(),
+          _categoryRowBuilder(),
+          _dateRowBuilder(),
+          _timeRowBuilder(),
+        ]));
   }
 }
 

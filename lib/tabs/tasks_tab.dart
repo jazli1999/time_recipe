@@ -49,7 +49,7 @@ class _TasksTabState extends State<TasksTab> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Statistics', style: Styles.appBarTitle),
+                        Text('Tasks', style: Styles.appBarTitle),
                         logout.logoutBuilder()
                       ])),
               backgroundColor: Color(0xffffffff),

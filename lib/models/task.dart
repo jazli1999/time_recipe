@@ -1,17 +1,11 @@
-import 'package:flutter/foundation.dart';
-
 class Task {
   Task(
-      {@required this.name,
-      @required this.dateTime,
-      @required this.isDone,
-      @required this.categoryId,
-      @required this.id,
-      this.note})
-      : assert(name != null),
-        assert(dateTime != null),
-        assert(isDone != null),
-        assert(id != null);
+      {this.name,
+      this.dateTime,
+      this.isDone,
+      this.categoryId,
+      this.id,
+      this.note});
 
   final String name;
   final DateTime dateTime;

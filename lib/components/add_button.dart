@@ -43,6 +43,7 @@ class _AddButtonState extends State<AddButton> {
                     icon: Icon(Icons.check_circle_outline),
                     onPressed: () {
                       toggleOverlay();
+                      Navigator.pushNamed(context, '/addTask');
                     }),
               ])
             ]),

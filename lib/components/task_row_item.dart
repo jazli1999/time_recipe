@@ -118,6 +118,7 @@ class _TaskRowItemState extends State<TaskRowItem> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               child: TaskDetailCard(
+                                  isNew: false,
                                   task: this.task,
                                   categoryHeader: Utils.getCategoryHeader(
                                       Utils.findCategoryById(task.categoryId))),
