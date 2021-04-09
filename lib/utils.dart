@@ -30,4 +30,16 @@ class Utils {
         : dateTime.minute.toString();
     return '$hour : $minute';
   }
+
+  static const mockNextTasks = <String>[
+    'Chapter 4 today',
+    'Buy milk in 6 days',
+    'Presentation in 15 dyas',
+    'Rent in 28 days',
+    'Midterm in 2 months'
+  ];
+
+  static String calcNextTask(int index) {
+    return mockNextTasks[index];
+  }
 }
