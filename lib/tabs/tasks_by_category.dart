@@ -38,18 +38,16 @@ class _TasksByCategoryState extends State<TasksByCategory> {
     return SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-            constraints: BoxConstraints(maxHeight: 660),
-            child: Padding(
-                padding: EdgeInsets.only(bottom: 1),
-                child: ListView.builder(
-                  itemCount: this.categories.length,
-                  itemBuilder: (context, index) {
-                    return CategoryRowItem(
-                      category: categories[index],
-                      index: index,
-                      nextTask: Utils.calcNextTask(index),
-                    );
-                  },
-                ))));
+            constraints: BoxConstraints(maxHeight: 550),
+            child: ListView.builder(
+              itemCount: this.categories.length,
+              itemBuilder: (context, index) {
+                return CategoryRowItem(
+                  category: categories[index],
+                  index: index,
+                  nextTask: Utils.calcNextTask(index),
+                );
+              },
+            )));
   }
 }
