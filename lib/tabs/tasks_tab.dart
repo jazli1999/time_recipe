@@ -7,6 +7,7 @@ import 'package:time_recipe/components/bottom_bar.dart';
 import 'package:time_recipe/components/add_button.dart';
 import 'package:time_recipe/components/logout.dart';
 import 'package:time_recipe/tabs/tasks_by_category.dart';
+import 'package:time_recipe/tabs/tasks_by_date.dart';
 
 class TasksTab extends StatefulWidget {
   @override
@@ -63,7 +64,7 @@ class _TasksTabState extends State<TasksTab> {
                 if (selected == 'category')
                   TasksByCategory()
                 else
-                  Text('Calendar View'),
+                  TasksByDate(),
               ])));
     });
   }

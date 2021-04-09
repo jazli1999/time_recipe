@@ -7,6 +7,9 @@ abstract class Styles {
   static const thirdSize = 14.0;
   static const headerSize = 24.0;
 
+  static const PURPLE = Color(0xbb845ba8);
+  static const DARK_PURPLE = Color(0xff845ba8);
+
   static const TextStyle logoFont = const TextStyle(
       fontFamily: 'QuanTangShiJ', color: Color(0xcc303030), fontSize: 60);
 

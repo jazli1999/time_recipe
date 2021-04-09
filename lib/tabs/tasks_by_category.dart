@@ -38,7 +38,8 @@ class _TasksByCategoryState extends State<TasksByCategory> {
     return SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-            constraints: BoxConstraints(maxHeight: 550),
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height - 230),
             child: ListView.builder(
               itemCount: this.categories.length,
               itemBuilder: (context, index) {
