@@ -8,12 +8,10 @@ import 'package:time_recipe/models/category.dart';
 import 'package:time_recipe/utils.dart';
 
 class TaskDetailCard extends StatefulWidget {
-  const TaskDetailCard(
-      {this.task, this.categoryHeader, this.isNew, this.editMode = false});
+  const TaskDetailCard({this.task, this.categoryHeader, this.isNew = false});
   final Task task;
   final String categoryHeader;
   final bool isNew;
-  final bool editMode;
 
   @override
   State<StatefulWidget> createState() {
@@ -36,7 +34,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
   DateTime time;
   int categoryId;
   String taskName;
-  bool editMode;
+  bool editMode = false;
   bool updated = false;
 
   Widget _editBtn() {
@@ -75,7 +73,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
               }),
             textAlign: TextAlign.start,
             style: Styles.baseFontBold,
-            enabled: this.editMode,
+            enabled: widget.isNew || this.editMode,
             controller: controller,
             decoration: InputDecoration(
               hintText: 'Task Title',
@@ -104,7 +102,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
               Container(
                 child: GestureDetector(
                     onTap: () {
-                      if (editMode)
+                      if (widget.isNew || editMode)
                         DatePicker.showDatePicker(context,
                             showTitleActions: true,
                             minTime: DateTime.now(),
@@ -136,7 +134,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
               Container(
                   child: GestureDetector(
                 onTap: () {
-                  if (editMode)
+                  if (widget.isNew || editMode)
                     DatePicker.showTimePicker(context,
                         showTitleActions: true,
                         showSecondsColumn: false, onConfirm: (newTime) {
@@ -165,7 +163,7 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _labelBuilder('📂', 'Category'),
-            if (editMode)
+            if (widget.isNew || editMode)
               DropdownButton<String>(
                 icon: Icon(Icons.keyboard_arrow_down),
                 style: Styles.thirdFont,
@@ -326,7 +324,6 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
 
   @override
   Widget build(BuildContext context) {
-    this.editMode = widget.editMode;
     if (!updated) _fetchLatestCategories();
 
     if (widget.isNew)

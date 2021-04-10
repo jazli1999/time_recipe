@@ -35,8 +35,7 @@ class _AddTaskTabState extends State<AddTaskTab> {
           TaskDetailCard(
               categoryHeader: null,
               task: Task(dateTime: DateTime.now()),
-              isNew: true,
-              editMode: true)
+              isNew: true)
         ]));
   }
 }
