@@ -11,7 +11,7 @@ class Builders {
   Widget itemLineBuilder(BuildContext context, int index) {
     if (list.length == 1) {
       if (index == 0)
-        return TaskRowItem(
+        return new TaskRowItem(
             isFirst: true,
             isLast: true,
             task: list[index],
@@ -20,19 +20,19 @@ class Builders {
         return null;
     } else {
       if (index == 0)
-        return TaskRowItem(
+        return new TaskRowItem(
             isFirst: true,
             isLast: false,
             task: list[index],
             refreshData: updateData);
       else if (index < list.length - 1)
-        return TaskRowItem(
+        return new TaskRowItem(
             isFirst: false,
             isLast: false,
             task: list[index],
             refreshData: updateData);
       else if (index == list.length - 1)
-        return TaskRowItem(
+        return new TaskRowItem(
             isFirst: false,
             isLast: true,
             task: list[index],
