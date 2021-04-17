@@ -12,6 +12,9 @@ class AddTaskTab extends StatefulWidget {
 }
 
 class _AddTaskTabState extends State<AddTaskTab> {
+  TaskDetailCard _detailCard = TaskDetailCard(
+      categoryHeader: null, task: Task(dateTime: DateTime.now()), isNew: true);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,17 +28,6 @@ class _AddTaskTabState extends State<AddTaskTab> {
           ),
           preferredSize: Size.fromHeight(80),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton.extended(
-            label: Text('Add'),
-            icon: Icon(Icons.done),
-            onPressed: () {},
-            backgroundColor: Colors.green[500]),
-        body: Column(children: [
-          TaskDetailCard(
-              categoryHeader: null,
-              task: Task(dateTime: DateTime.now()),
-              isNew: true)
-        ]));
+        body: Column(children: [_detailCard]));
   }
 }

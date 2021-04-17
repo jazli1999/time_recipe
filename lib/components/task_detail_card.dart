@@ -37,6 +37,20 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
   bool editMode = false;
   bool updated = false;
 
+  void _addTask() {
+    Map<String, dynamic> params = new Map();
+    DateTime dateTime =
+        DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    params['c_id'] = categoryId;
+    params['t_name'] = taskName;
+    params['date_time'] = dateTime.toString();
+    DBConnect.addTask(params).then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
   Widget _editBtn() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -318,6 +332,12 @@ class _TaskDetailCardState extends State<TaskDetailCard> {
                   _editBtnRowBuilder()
                 else if (!widget.isNew)
                   _viewBtnRowBuilder(),
+                if (widget.isNew)
+                  FloatingActionButton.extended(
+                      label: Text('Add'),
+                      icon: Icon(Icons.done),
+                      onPressed: this._addTask,
+                      backgroundColor: Colors.green[500]),
               ],
             )));
   }
