@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:time_recipe/components/category_detail_card.dart';
+import 'package:time_recipe/models/category.dart';
+
 AddButton button;
 
 AddButton getFab() {
@@ -34,7 +37,22 @@ class _AddButtonState extends State<AddButton> {
                     icon: Icon(Icons.book_outlined),
                     onPressed: () {
                       toggleOverlay();
-                      Navigator.pushNamed(context, '/addCategory');
+                      showDialog<Null>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return UnconstrainedBox(
+                                child: SizedBox(
+                                    width: 450,
+                                    child: Dialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: CategoryDetailCard(
+                                          category: Category(),
+                                          isNew: true,
+                                          editMode: false),
+                                    )));
+                          });
                     }),
                 SizedBox(height: 10),
                 FloatingActionButton.extended(

@@ -64,13 +64,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.10"
-  emoji_picker:
+  dotted_border:
     dependency: "direct main"
     description:
-      name: emoji_picker
+      name: dotted_border
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.0"
+    version: "1.0.7"
+  emoji_chooser:
+    dependency: "direct main"
+    description:
+      name: emoji_chooser
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.9.2"
   equatable:
     dependency: transitive
     description:
@@ -401,4 +408,4 @@ packages:
     version: "0.1.2"
 sdks:
   dart: ">=2.10.1 <2.11.0"
-  flutter: ">=1.16.0 <2.0.0"
+  flutter: ">=1.17.0 <2.0.0"

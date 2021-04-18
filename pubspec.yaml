@@ -39,8 +39,9 @@ dependencies:
   toast: ^0.1.5
   shared_preferences: ^0.5.1+4
   flutter_phoenix: ^0.1.0
-  emoji_picker: ^0.1.0
   flutter_calendar_carousel: ^1.5.3
+  emoji_chooser: ^0.9.2
+  dotted_border: ^1.0.7
 
 dev_dependencies:
   flutter_test:

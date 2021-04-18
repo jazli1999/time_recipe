@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:time_recipe/login_page.dart';
-import 'package:time_recipe/tabs/add_category_tab.dart';
 import 'package:time_recipe/tabs/add_task_tab.dart';
 import 'package:time_recipe/tabs/tasks_tab.dart';
 import 'package:time_recipe/tabs/statistics_tab.dart';
@@ -20,7 +19,6 @@ class _TimeRecipeState extends State<TimeRecipe> {
     return MaterialApp(routes: {
       '/tasks': (context) => TasksTab(),
       '/statistics': (context) => StatisticsTab(),
-      '/addCategory': (context) => AddCategoryTab(),
       '/addTask': (context) => AddTaskTab(),
     }, home: LoginPage());
   }

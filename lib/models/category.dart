@@ -1,16 +1,5 @@
-import 'package:flutter/foundation.dart';
-
 class Category {
-  const Category(
-      {@required this.name,
-      @required this.isArchived,
-      @required this.id,
-      @required this.icon})
-      : assert(name != null),
-        assert(isArchived != null),
-        assert(id != null),
-        assert(icon != null);
-
+  const Category({this.name, this.isArchived, this.id, this.icon});
   final String name;
   final bool isArchived;
   final int id;

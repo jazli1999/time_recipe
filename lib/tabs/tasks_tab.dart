@@ -44,6 +44,7 @@ class _TasksTabState extends State<TasksTab> {
             preferredSize: Size.fromHeight(80),
           ),
           bottomNavigationBar: BottomBar(selected: 'tasks'),
+          resizeToAvoidBottomPadding: false,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: getFab(),
