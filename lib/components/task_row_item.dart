@@ -127,7 +127,9 @@ class _TaskRowItemState extends State<TaskRowItem> {
                 refreshData();
               });
             },
-            child: Text(task.name, style: Styles.secondFont)),
+            child: Text("${task.name}${task.isDone ? ' ✅' : ''}",
+                style:
+                    task.isDone ? Styles.finishedTaskFont : Styles.secondFont)),
       ],
     );
   }

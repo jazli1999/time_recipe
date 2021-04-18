@@ -56,6 +56,11 @@ abstract class Styles {
     color: Color(0xff000000),
   );
 
+  static const TextStyle finishedTaskFont = TextStyle(
+    fontSize: secondSize,
+    color: Color(0x88000000),
+  );
+
   static const TextStyle secondFontWhite = TextStyle(
     fontSize: secondSize,
     color: Color(0xffffffff),
