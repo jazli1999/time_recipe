@@ -40,6 +40,6 @@ class Utils {
   ];
 
   static String calcNextTask(int index) {
-    return mockNextTasks[index];
+    return mockNextTasks[index % 5];
   }
 }

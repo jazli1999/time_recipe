@@ -52,7 +52,7 @@ class _TasksTabState extends State<TasksTab> {
               padding: EdgeInsets.only(bottom: 15),
               child: Column(children: [
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.only(top: 13, bottom: 10),
                     child: CupertinoSlidingSegmentedControl(
                         groupValue: this.selected,
                         padding: EdgeInsets.symmetric(horizontal: 5),

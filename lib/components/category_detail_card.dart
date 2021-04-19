@@ -6,6 +6,7 @@ import 'package:time_recipe/db_connect.dart';
 import 'package:time_recipe/models/category.dart';
 import 'package:time_recipe/styles.dart';
 import 'package:time_recipe/current_user.dart';
+import 'package:time_recipe/models/repository.dart';
 
 class CategoryDetailCard extends StatefulWidget {
   CategoryDetailCard(
@@ -104,6 +105,7 @@ class _CategoryDetailCardState extends State<CategoryDetailCard> {
           DBConnect.addCategory(params).then((value) {
             if (value) {
               Navigator.pop(context);
+              Repository.updateCategories();
             }
           });
         });

@@ -2,7 +2,7 @@ import 'package:time_recipe/models/category.dart';
 import 'package:time_recipe/db_connect.dart';
 
 class Repository {
-  static List<Category> categories;
+  static List<Category> categories = [];
 
   static Category getCategoryById(int id) {
     for (Category cat in Repository.categories) {
