@@ -48,9 +48,7 @@ class _AddButtonState extends State<AddButton> {
                                           borderRadius:
                                               BorderRadius.circular(20)),
                                       child: CategoryDetailCard(
-                                          category: Category(),
-                                          isNew: true,
-                                          editMode: false),
+                                          category: Category(), isNew: true),
                                     )));
                           });
                     }),

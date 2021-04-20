@@ -46,6 +46,13 @@ class DBConnect {
     return response.data == "1";
   }
 
+  static Future<bool> updateCategory(Map<String, dynamic> params) async {
+    FormData formData = FormData.fromMap(params);
+    Response response =
+        await Dio().post(ip + '/updateCategoryByCID.php', data: formData);
+    return response.data == "1";
+  }
+
   static Future<bool> deleteTaskByTID(int tID) async {
     Response response = await Dio().post(ip + '/deleteTaskByTID.php',
         data: FormData.fromMap({'t_id': tID}));

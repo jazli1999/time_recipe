@@ -9,9 +9,7 @@ import 'package:time_recipe/current_user.dart';
 import 'package:time_recipe/models/repository.dart';
 
 class CategoryDetailCard extends StatefulWidget {
-  CategoryDetailCard(
-      {@required this.editMode, @required this.isNew, @required this.category});
-  final bool editMode;
+  CategoryDetailCard({@required this.isNew, @required this.category});
   final bool isNew;
   final Category category;
 
@@ -81,13 +79,33 @@ class _CategoryDetailCardState extends State<CategoryDetailCard> {
           }),
         textAlign: TextAlign.start,
         style: Styles.baseFont,
-        enabled: widget.editMode || widget.isNew,
         controller: controller,
         decoration: InputDecoration(
           hintText: 'Tap to input the category title',
           contentPadding: EdgeInsets.only(bottom: -10, left: 5),
         ));
     return Row(children: [SizedBox(width: 300, child: nameField)]);
+  }
+
+  Widget _updateButtonBuilder() {
+    return FloatingActionButton.extended(
+        label: Text('Update'),
+        backgroundColor: Colors.blue[600],
+        icon: Icon(Icons.check),
+        onPressed: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+          this.categoryName = nameField.controller.text;
+          Map<String, dynamic> params = new Map();
+          params['icon'] = this.icon;
+          params['c_name'] = this.categoryName;
+          params['c_id'] = widget.category.id;
+          DBConnect.updateCategory(params).then((value) {
+            if (value) {
+              Navigator.pop(context);
+              Repository.updateCategories();
+            }
+          });
+        });
   }
 
   Widget _submitButtonBuilder() {
@@ -130,7 +148,10 @@ class _CategoryDetailCardState extends State<CategoryDetailCard> {
               _iconPicker(),
               _categoryNameFieldBuilder(),
               SizedBox(height: 20),
-              _submitButtonBuilder()
+              if (widget.isNew)
+                _submitButtonBuilder()
+              else
+                _updateButtonBuilder()
             ])));
   }
 }

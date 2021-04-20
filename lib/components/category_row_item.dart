@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:expansion_card/expansion_card.dart';
+import 'package:time_recipe/components/category_detail_card.dart';
+import 'package:time_recipe/components/task_detail_card.dart';
+import 'package:time_recipe/components/task_details.dart';
 import 'dart:ui';
 
 import 'package:time_recipe/models/category.dart';
@@ -34,6 +37,26 @@ class _CategoryRowItemState extends State<CategoryRowItem> {
           Repository.updateCategories();
         });
       }
+    });
+  }
+
+  void _editCategory() {
+    showDialog<Null>(
+        context: context,
+        builder: (BuildContext context) {
+          return UnconstrainedBox(
+              child: SizedBox(
+                  width: 450,
+                  child: Dialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: CategoryDetailCard(
+                          category: widget.category, isNew: false))));
+        }).then((_) {
+      setState(() {
+        this.showButtons = false;
+        Repository.updateCategories();
+      });
     });
   }
 
@@ -103,7 +126,7 @@ class _CategoryRowItemState extends State<CategoryRowItem> {
                                         // padding to display the fab shadows
                                         child: FloatingActionButton(
                                             backgroundColor: Styles.PURPLE,
-                                            onPressed: () {},
+                                            onPressed: this._editCategory,
                                             elevation: 5,
                                             child: Icon(
                                               Icons.edit,
