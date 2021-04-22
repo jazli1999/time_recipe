@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:expansion_card/expansion_card.dart';
 import 'package:time_recipe/components/category_detail_card.dart';
-import 'package:time_recipe/components/task_detail_card.dart';
-import 'package:time_recipe/components/task_details.dart';
 import 'dart:ui';
 
 import 'package:time_recipe/models/category.dart';

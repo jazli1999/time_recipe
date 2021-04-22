@@ -74,6 +74,19 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Widget signUpHintBuilder() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+            child: Text('没有账号？点此注册', style: Styles.textLink),
+            onTap: () {
+              Navigator.pushNamed(context, '/signUp');
+            })
+      ],
+    );
+  }
+
   Widget build(BuildContext context) {
     checkLoginStatus();
 
@@ -116,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Padding(
         padding: EdgeInsets.only(bottom: 100),
         child: SizedBox(
-            height: 350,
+            height: 400,
             width: 400,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -157,7 +170,9 @@ class _LoginPageState extends State<LoginPage> {
                       child: Padding(
                           padding: EdgeInsets.all(10),
                           child:
-                              Text('Log In', style: Styles.baseFontBoldWhite)))
+                              Text('Log In', style: Styles.baseFontBoldWhite))),
+                  SizedBox(height: 10),
+                  signUpHintBuilder(),
                 ])),
       ),
     ));

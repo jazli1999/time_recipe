@@ -24,6 +24,12 @@ abstract class Styles {
     fontSize: secondSize,
   );
 
+  static const TextStyle textLink = TextStyle(
+      color: PURPLE,
+      decoration: TextDecoration.underline,
+      fontWeight: FontWeight.w600,
+      fontSize: thirdSize);
+
   static const TextStyle baseFont = TextStyle(
     fontSize: baseSize,
     color: Color(0xff000000),
