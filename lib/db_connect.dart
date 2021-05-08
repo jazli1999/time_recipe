@@ -4,7 +4,7 @@ import 'package:time_recipe/models/category.dart';
 import 'package:time_recipe/models/task.dart';
 
 class DBConnect {
-  static const ip = 'http://47.94.172.0';
+  static const ip = 'http://47.94.172.0/dai';
 
   static Future<List<Category>> getCategoriesByUID() async {
     Response response = await Dio().get(
