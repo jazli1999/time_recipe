@@ -18,6 +18,38 @@ class StatisticsTab extends StatefulWidget {
 }
 
 class _StatisticsTabState extends State<StatisticsTab> {
+  Orientation curOrientation;
+
+  Widget _portraitView() {
+    return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+            padding: EdgeInsets.only(bottom: 80),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(children: [
+                  SizedBox(height: 15),
+                  TimeDistributionCard(),
+                  SizedBox(height: 10),
+                  CategoryDistributionCard(orientation: curOrientation),
+                ])
+              ],
+            )));
+  }
+
+  Widget _landscapeView() {
+    return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              TimeDistributionCard(),
+              SizedBox(width: 20),
+              CategoryDistributionCard(orientation: curOrientation)
+            ])));
+  }
+
   @override
   Widget build(BuildContext context) {
     Logout logout = new Logout(context: context);
@@ -42,21 +74,16 @@ class _StatisticsTabState extends State<StatisticsTab> {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: getFab(),
           bottomNavigationBar: BottomBar(selected: 'statistics'),
-          body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Padding(
-                  padding: EdgeInsets.only(bottom: 80),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(children: [
-                        SizedBox(height: 15),
-                        TimeDistributionCard(),
-                        SizedBox(height: 10),
-                        CategoryDistributionCard(),
-                      ])
-                    ],
-                  ))));
+          body: OrientationBuilder(builder: (context, orientation) {
+            if (orientation == Orientation.landscape &&
+                MediaQuery.of(context).size.width > 800) {
+              curOrientation = Orientation.landscape;
+              return _landscapeView();
+            } else {
+              curOrientation = Orientation.portrait;
+              return _portraitView();
+            }
+          }));
     });
   }
 }

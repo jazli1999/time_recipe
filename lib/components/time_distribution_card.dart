@@ -129,7 +129,7 @@ class _TimeDistributionCardState extends State<TimeDistributionCard> {
         elevation: 5,
         shadowColor: Color(0x55000000),
         child: Container(
-            constraints: BoxConstraints(minWidth: 400),
+            constraints: BoxConstraints(minWidth: 400, maxHeight: 550),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

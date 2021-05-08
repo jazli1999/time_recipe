@@ -6,6 +6,10 @@ import 'package:time_recipe/db_connect.dart';
 import 'package:time_recipe/styles.dart';
 
 class CategoryDistributionCard extends StatefulWidget {
+  CategoryDistributionCard({this.orientation});
+
+  final Orientation orientation;
+
   @override
   State<StatefulWidget> createState() {
     return _CategoryDistributionCardState();
@@ -64,6 +68,70 @@ class _CategoryDistributionCardState extends State<CategoryDistributionCard> {
     });
   }
 
+  Widget _portraitBuilder() {
+    return Container(
+        constraints: BoxConstraints(minWidth: 400, maxHeight: 320),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          SizedBox(height: 15),
+          Text('Tasks Distribution by Category', style: Styles.baseFontBold),
+          SizedBox(height: 20),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Container(
+              constraints: BoxConstraints(
+                  minWidth: 220, minHeight: 220, maxWidth: 220, maxHeight: 220),
+              child: this.sectionData.length == 0
+                  ? Text('No data')
+                  : PieChart(PieChartData(
+                      sections: this.sectionData,
+                      centerSpaceRadius: 30,
+                      sectionsSpace: 3,
+                      borderData: FlBorderData(
+                        show: false,
+                      ),
+                    )),
+            ),
+            SizedBox(width: 10),
+            if (updated) _CategoryLegend(),
+          ])
+        ]));
+  }
+
+  Widget _landscapeBuilder() {
+    return Container(
+        constraints: BoxConstraints(minWidth: 400, maxHeight: 550),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          SizedBox(height: 15),
+          Text('Tasks Distribution by Category', style: Styles.baseFontBold),
+          SizedBox(height: 20),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Column(
+              children: [
+                SizedBox(height: 15),
+                Container(
+                  constraints: BoxConstraints(
+                      minWidth: 220,
+                      minHeight: 220,
+                      maxWidth: 220,
+                      maxHeight: 220),
+                  child: this.sectionData.length == 0
+                      ? Text('No data')
+                      : PieChart(PieChartData(
+                          sections: this.sectionData,
+                          centerSpaceRadius: 30,
+                          sectionsSpace: 3,
+                          borderData: FlBorderData(
+                            show: false,
+                          ),
+                        )),
+                ),
+                SizedBox(height: 20),
+                if (updated) _CategoryLegend(),
+              ],
+            )
+          ])
+        ]));
+  }
+
   @override
   Widget build(BuildContext context) {
     this.counter = -1;
@@ -72,38 +140,10 @@ class _CategoryDistributionCardState extends State<CategoryDistributionCard> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         shadowColor: Color(0x55000000),
-        child: SizedBox(
-            width: 400,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 15),
-                  Text('Tasks Distribution by Category',
-                      style: Styles.baseFontBold),
-                  SizedBox(height: 20),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Container(
-                      constraints: BoxConstraints(
-                          minWidth: 220,
-                          minHeight: 220,
-                          maxWidth: 220,
-                          maxHeight: 220),
-                      child: this.sectionData.length == 0
-                          ? Text('No data')
-                          : PieChart(PieChartData(
-                              sections: this.sectionData,
-                              centerSpaceRadius: 30,
-                              sectionsSpace: 3,
-                              borderData: FlBorderData(
-                                show: false,
-                              ),
-                            )),
-                    ),
-                    SizedBox(width: 10),
-                    if (updated) _CategoryLegend(),
-                  ]),
-                  SizedBox(height: 20),
-                ])));
+        child: widget.orientation == Orientation.landscape &&
+                MediaQuery.of(context).size.width > 800
+            ? _landscapeBuilder()
+            : _portraitBuilder());
   }
 }
 
