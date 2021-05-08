@@ -17,11 +17,44 @@ class TasksTab extends StatefulWidget {
 }
 
 class _TasksTabState extends State<TasksTab> {
+  Orientation curOrientation;
+
   final tabs = {
     'category': Text('Category View'),
     'calendar': Text('Calendar View')
   };
   String selected = 'category';
+
+  Widget _portraitBuilder() {
+    return Padding(
+        padding: EdgeInsets.only(bottom: 15),
+        child: Column(children: [
+          Padding(
+              padding: EdgeInsets.only(top: 13, bottom: 10),
+              child: CupertinoSlidingSegmentedControl(
+                  groupValue: this.selected,
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  children: tabs,
+                  onValueChanged: (newRange) {
+                    setState(() {
+                      this.selected = newRange;
+                    });
+                  })),
+          if (selected == 'category') TasksByCategory() else TasksByDate(),
+        ]));
+  }
+
+  Widget _landscapeBuilder() {
+    return Padding(
+        padding: EdgeInsets.only(bottom: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TasksByDate(),
+            Padding(padding: EdgeInsets.only(top: 20), child: TasksByCategory())
+          ],
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,25 +81,13 @@ class _TasksTabState extends State<TasksTab> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: getFab(),
-          body: Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: Column(children: [
-                Padding(
-                    padding: EdgeInsets.only(top: 13, bottom: 10),
-                    child: CupertinoSlidingSegmentedControl(
-                        groupValue: this.selected,
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        children: tabs,
-                        onValueChanged: (newRange) {
-                          setState(() {
-                            this.selected = newRange;
-                          });
-                        })),
-                if (selected == 'category')
-                  TasksByCategory()
-                else
-                  TasksByDate(),
-              ])));
+          body: OrientationBuilder(builder: (context, orientation) {
+            print(MediaQuery.of(context).size.width);
+            return (orientation == Orientation.landscape &&
+                    MediaQuery.of(context).size.width > 1000)
+                ? _landscapeBuilder()
+                : _portraitBuilder();
+          }));
     });
   }
 }

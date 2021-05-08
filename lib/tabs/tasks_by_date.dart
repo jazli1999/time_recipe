@@ -27,12 +27,13 @@ class _TasksByDateState extends State<TasksByDate> {
       height: 340,
       width: 350,
       dayPadding: 0,
+      selectedDateTime: this.selectedDate,
       onDayPressed: (date, events) {
         this.selectedDate = date;
         this.updated = false;
         _updateData();
       },
-      headerMargin: EdgeInsets.only(bottom: 5),
+      headerMargin: EdgeInsets.only(bottom: 5, top: 15),
       headerTextStyle: TextStyle(
           fontSize: 14, color: Color(0xff448aff), fontWeight: FontWeight.bold),
       weekdayTextStyle:
@@ -81,13 +82,16 @@ class _TasksByDateState extends State<TasksByDate> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             elevation: 10,
-            child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Column(
-                    children: [_calendarBuilder(), _dayLineBuilder()],
-                  )
-                ]))));
+            child: Container(
+                constraints: BoxConstraints(maxWidth: 450),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [_calendarBuilder(), _dayLineBuilder()],
+                          )
+                        ])))));
   }
 }

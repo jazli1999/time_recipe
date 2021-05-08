@@ -31,20 +31,26 @@ class _TasksByCategoryState extends State<TasksByCategory> {
   @override
   Widget build(BuildContext context) {
     if (!this.updated) _updateData();
-    return SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-            constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height - 230),
-            child: ListView.builder(
-              itemCount: Repository.categories.length,
-              itemBuilder: (context, index) {
-                return CategoryRowItem(
-                  category: Repository.categories[index],
-                  index: index,
-                  nextTask: Utils.calcNextTask(index),
-                );
-              },
-            )));
+    final mediaWidth = MediaQuery.of(context).size.width - 600;
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Container(
+          constraints: BoxConstraints(
+              maxWidth: mediaWidth < 600 ? mediaWidth : 600, minWidth: 400),
+          child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                  constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height - 230),
+                  child: ListView.builder(
+                    itemCount: Repository.categories.length,
+                    itemBuilder: (context, index) {
+                      return CategoryRowItem(
+                        category: Repository.categories[index],
+                        index: index,
+                        nextTask: Utils.calcNextTask(index),
+                      );
+                    },
+                  ))))
+    ]);
   }
 }

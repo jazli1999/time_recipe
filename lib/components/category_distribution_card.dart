@@ -140,8 +140,7 @@ class _CategoryDistributionCardState extends State<CategoryDistributionCard> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
         shadowColor: Color(0x55000000),
-        child: widget.orientation == Orientation.landscape &&
-                MediaQuery.of(context).size.width > 800
+        child: widget.orientation == Orientation.landscape
             ? _landscapeBuilder()
             : _portraitBuilder());
   }

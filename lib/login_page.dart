@@ -52,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
 
   void setCurrentUser(int id, String username) {
     CurrentUser.setId(id);
-    CurrentUser.setUsername(username);
     CurrentUser.setIsLoggedIn(true);
   }
 
@@ -64,8 +63,6 @@ class _LoginPageState extends State<LoginPage> {
     bool isLogged = prefs.getBool('logged');
     if (isLogged) {
       CurrentUser.setId(prefs.getInt('id'));
-      String username = await DBConnect.getUserInfo();
-      CurrentUser.setUsername(username);
       CurrentUser.setIsLoggedIn(true);
 
       Navigator.pushNamed(context, '/tasks');
