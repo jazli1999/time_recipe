@@ -76,22 +76,24 @@ class _TasksByDateState extends State<TasksByDate> {
   @override
   Widget build(BuildContext context) {
     if (!updated) _updateData();
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            elevation: 10,
-            child: Container(
-                constraints: BoxConstraints(maxWidth: 450),
-                child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(
-                            children: [_calendarBuilder(), _dayLineBuilder()],
-                          )
-                        ])))));
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              elevation: 10,
+              child: Container(
+                  constraints: BoxConstraints(maxWidth: 450),
+                  child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [_calendarBuilder(), _dayLineBuilder()],
+                            )
+                          ])))))
+    ]);
   }
 }

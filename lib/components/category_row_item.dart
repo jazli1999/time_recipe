@@ -28,7 +28,6 @@ class _CategoryRowItemState extends State<CategoryRowItem> {
 
   void _deleteCategory() {
     DBConnect.deleteCategoryById(widget.category.id).then((value) {
-      print(value);
       if (value) {
         setState(() {
           this.showButtons = false;

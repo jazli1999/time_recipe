@@ -7,6 +7,9 @@ import 'package:time_recipe/components/category_row_item.dart';
 import 'package:time_recipe/utils.dart';
 
 class TasksByCategory extends StatefulWidget {
+  TasksByCategory({@required this.renderWidth});
+  final double renderWidth;
+
   @override
   State<StatefulWidget> createState() {
     return _TasksByCategoryState();
@@ -31,11 +34,11 @@ class _TasksByCategoryState extends State<TasksByCategory> {
   @override
   Widget build(BuildContext context) {
     if (!this.updated) _updateData();
-    final mediaWidth = MediaQuery.of(context).size.width - 600;
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Container(
           constraints: BoxConstraints(
-              maxWidth: mediaWidth < 600 ? mediaWidth : 600, minWidth: 400),
+              maxWidth: widget.renderWidth > 400 ? widget.renderWidth : 400,
+              minWidth: 400),
           child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(

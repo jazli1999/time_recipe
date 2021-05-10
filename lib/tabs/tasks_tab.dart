@@ -40,18 +40,29 @@ class _TasksTabState extends State<TasksTab> {
                       this.selected = newRange;
                     });
                   })),
-          if (selected == 'category') TasksByCategory() else TasksByDate(),
+          if (selected == 'category')
+            _taskByCategoryWrapper()
+          else
+            TasksByDate(),
         ]));
   }
 
+  Widget _taskByCategoryWrapper() {
+    return TasksByCategory(renderWidth: MediaQuery.of(context).size.width - 30);
+  }
+
   Widget _landscapeBuilder() {
+    final mediaWidth = MediaQuery.of(context).size.width - 600;
+    final maxWidth = mediaWidth < 600 ? mediaWidth : 600;
     return Padding(
         padding: EdgeInsets.only(bottom: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TasksByDate(),
-            Padding(padding: EdgeInsets.only(top: 20), child: TasksByCategory())
+            Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: TasksByCategory(renderWidth: maxWidth))
           ],
         ));
   }
@@ -82,7 +93,6 @@ class _TasksTabState extends State<TasksTab> {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: getFab(),
           body: OrientationBuilder(builder: (context, orientation) {
-            print(MediaQuery.of(context).size.width);
             return (orientation == Orientation.landscape &&
                     MediaQuery.of(context).size.width > 1000)
                 ? _landscapeBuilder()
