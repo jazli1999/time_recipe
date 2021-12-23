@@ -19,7 +19,7 @@ A cross-platform (Web, Android, iOS) timeline scheduler.
 ## Statistics View
 <p float="left">
     <img src="./screenshots/statistics.png" width="18%" />
-    <img src="./screenshots/statistics_landscape.png" width="55%" />\
+    <img src="./screenshots/statistics_landscape.png" width="55%" />
 </p>
 
 ## User Authentication
